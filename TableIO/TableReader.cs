@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TableIO
 {
-    public class TableReader
+    public class TableReader<TModel> where TModel : new()
     {
         public bool HasHeader { get; set; }
         public int ValidColumnSize { get; set; } = -1;
@@ -14,14 +14,14 @@ namespace TableIO
         public IRowReader RowReader { get; set; }
         public ITypeConverterResolver TypeConverterResolver { get; set; }
         public IPropertyMapper PropertyMapper { get; set; }
+        public IModelValidator ModelValidator { get; set; }
 
         private int _rowNumber = 0;
         private IEnumerable<PropertyMap> _propertyMaps = null;
 
-        public IEnumerable<T> Read<T>()
-            where T : new()
+        public IEnumerable<TModel> Read()
         {
-            var models = new List<T>();
+            var models = new List<TModel>();
 
             _rowNumber++;
             var firstRow = RowReader.Read();
@@ -46,7 +46,7 @@ namespace TableIO
             if (!HasHeader)
             {
                 if (firstRow != null)
-                    models.Add(ConvertFromRow<T>(firstRow));
+                    models.Add(ConvertFromRow(firstRow));
                 else
                     return models;
             }
@@ -60,16 +60,15 @@ namespace TableIO
                 if (row.Length != ValidColumnSize)
                     throw new TableIOException($"{_rowNumber}: column size is invalid.");
 
-                models.Add(ConvertFromRow<T>(row));
+                models.Add(ConvertFromRow(row));
             }
 
             return models;
         }
 
-        public T ConvertFromRow<T>(string[] row)
-            where T : new()
+        public TModel ConvertFromRow(string[] row)
         {
-            var model = new T();
+            var model = new TModel();
             foreach(var map in _propertyMaps)
             {
                 if (map.Index >= row.Length)
@@ -85,6 +84,11 @@ namespace TableIO
                     throw new TableIOException($"{_rowNumber}: {map.Property.Name}(index:{map.Index}) cannot be set {row[map.Index]}.", ex);
                 }
             }
+
+            var errors = ModelValidator.Validate(model);
+            if (errors.Any())
+                throw new TableIOException
+
             return model;
         }
     }
