@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TableIO
 {
+    [Serializable]
     public class ErrorDetail
     {
         public string Type { get; set; }

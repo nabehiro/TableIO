@@ -16,8 +16,8 @@ namespace TableIO
 
         public TableIOException(IList<ErrorDetail> errors)
             : base($"{errors.FirstOrDefault()?.ToString()}" +
-                  ( errors.Count == 0 ? "" 
-                  : errors.Count == 1 ? " and 1 other error." 
+                  ( errors.Count <= 1 ? "" 
+                  : errors.Count == 2 ? " and 1 other error." 
                   : $" and {errors.Count - 1} other errors." ))
         {
             Errors = errors;
