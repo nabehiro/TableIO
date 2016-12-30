@@ -118,8 +118,8 @@ namespace TableIO
                 {
                     Errors.Add(new ErrorDetail
                     {
-                        Type = "IllegalTypeConvert",
-                        Message = $"Type conver is illegal({ex.Message}).",
+                        Type = "ConvertFailure",
+                        Message = $"Field value({row[map.ColumnIndex]}) cannot be converted.({ex.Message}).",
                         RowIndex = rowIndex,
                         ColumnIndex = map.ColumnIndex
                     });

@@ -51,8 +51,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AutoIndexPropertyMapperTests.cs" />
+    <Compile Include="CsvRowReaderTests.cs" />
     <Compile Include="DefaultModelValidatorTests.cs" />
+    <Compile Include="DefaultTypeConverterResolverTests.cs" />
+    <Compile Include="DefaultTypeConverterTests.cs" />
     <Compile Include="ErrorDetailTests.cs" />
+    <Compile Include="FuncTypeConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
