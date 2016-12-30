@@ -18,7 +18,7 @@ namespace TableIO
         private Regex _tokenizer = new Regex(",|\\r?\\n|[^,\"\\r\\n]+|\"(?:[^\"]|\"\")*\"");
         private Match _match = null;
 
-        public string[] Read()
+        public IList<string> Read()
         {
             if (_text == null)
             {
@@ -43,7 +43,7 @@ namespace TableIO
                         break;
                     case "\n":
                     case "\r\n":
-                        return fields.ToArray();
+                        return fields;
                     default:
                         fields[fields.Count - 1] = val.StartsWith("\"") ?
                             val.Substring(1, val.Length - 2).Replace("\"\"", "\"") : val;
@@ -51,7 +51,7 @@ namespace TableIO
                 }
             }
 
-            return fields.ToArray();
+            return fields;
         }
     }
 }

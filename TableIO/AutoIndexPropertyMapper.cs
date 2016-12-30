@@ -26,7 +26,7 @@ namespace TableIO
                 });
         }
 
-        public void SetTableHeader(string[] header)
+        public void SetTableHeader(IList<string> header)
         {
         }
     }

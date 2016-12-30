@@ -31,22 +31,8 @@ namespace TableIO
 
 
 
-        public string[] Read()
+        public IList<string> Read()
         {
-            //var c = TextReader.Read();
-            //if (c == -1)
-            //    return null;
-
-            //var fields = new List<object>();
-            //var fieldStart = 0;
-            //var fieldEnd = 0;
-            //var inQuote = false;
-            //while (true)
-            //{
-            //    if (c == '"')
-            //        TextReader.po
-            //}
-
             return null;
         }
     }

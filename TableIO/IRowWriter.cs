@@ -8,5 +8,6 @@ namespace TableIO
 {
     public interface IRowWriter
     {
+        void Write(IList<string> row);
     }
 }

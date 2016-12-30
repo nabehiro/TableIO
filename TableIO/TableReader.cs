@@ -31,8 +31,8 @@ namespace TableIO
             if (firstRow != null)
             {
                 if (!ValidColumnSize.HasValue)
-                    ValidColumnSize = firstRow.Length;
-                else if (ValidColumnSize != firstRow.Length)
+                    ValidColumnSize = firstRow.Count;
+                else if (ValidColumnSize != firstRow.Count)
                 {
                     Errors.Add(new ErrorDetail
                     {
@@ -75,7 +75,7 @@ namespace TableIO
                 var row = RowReader.Read();
                 if (row == null)
                     break;
-                if (row.Length != ValidColumnSize)
+                if (row.Count != ValidColumnSize)
                 {
                     Errors.Add(new ErrorDetail
                     {
@@ -92,12 +92,12 @@ namespace TableIO
             return models;
         }
 
-        internal TModel ConvertFromRow(string[] row, int rowIndex, IEnumerable<PropertyMap> propertyMaps)
+        internal TModel ConvertFromRow(IList<string> row, int rowIndex, IEnumerable<PropertyMap> propertyMaps)
         {
             var model = new TModel();
             foreach(var map in propertyMaps)
             {
-                if (map.ColumnIndex >= row.Length)
+                if (map.ColumnIndex >= row.Count)
                 {
                     Errors.Add(new ErrorDetail
                     {
