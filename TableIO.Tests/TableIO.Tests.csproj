@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AutoIndexPropertyMapperTests.cs" />
     <Compile Include="CsvRowReaderTests.cs" />
+    <Compile Include="CsvRowWriterTests.cs" />
     <Compile Include="DefaultModelValidatorTests.cs" />
     <Compile Include="DefaultTypeConverterResolverTests.cs" />
     <Compile Include="DefaultTypeConverterTests.cs" />

@@ -15,14 +15,15 @@ namespace TableIO
         private string _text = null;
 
         // , | line break | non-escaped | escaped
-        private Regex _tokenizer = new Regex(",|\\r?\\n|[^,\"\\r\\n]+|\"(?:[^\"]|\"\")*\"");
+        private static readonly Regex _tokenizer = new Regex(",|\\r?\\n|[^,\"\\r\\n]+|\"(?:[^\"]|\"\")*\"", RegexOptions.Compiled);
+        private static readonly Regex _trimEndRegex = new Regex("\r?\n$", RegexOptions.Compiled);
         private Match _match = null;
 
         public IList<string> Read()
         {
             if (_text == null)
             {
-                _text = Regex.Replace(TextReader.ReadToEnd() ?? "", "\r?\n$", "");
+                _text = _trimEndRegex.Replace(TextReader.ReadToEnd() ?? "", "");
                 _match = _tokenizer.Match(_text);
             }
 
