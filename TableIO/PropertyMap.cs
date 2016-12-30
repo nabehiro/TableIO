@@ -9,7 +9,7 @@ namespace TableIO
 {
     public class PropertyMap
     {
-        public int Index { get; set; }
+        public int ColumnIndex { get; set; }
         public PropertyDescriptor Property { get; set; }
     }
 }

@@ -9,85 +9,132 @@ namespace TableIO
     public class TableReader<TModel> where TModel : new()
     {
         public bool HasHeader { get; set; }
-        public int ValidColumnSize { get; set; } = -1;
+        public int? ValidColumnSize { get; set; }
+        public int ErrorLimit { get; set; } = 1;
 
         public IRowReader RowReader { get; set; }
         public ITypeConverterResolver TypeConverterResolver { get; set; }
         public IPropertyMapper PropertyMapper { get; set; }
         public IModelValidator ModelValidator { get; set; }
 
-        private int _rowNumber = 0;
-        private IEnumerable<PropertyMap> _propertyMaps = null;
+        public List<ErrorDetail> Errors { get; } = new List<ErrorDetail>();
 
         public IEnumerable<TModel> Read()
         {
+            Errors.Clear();
             var models = new List<TModel>();
+            var rowIndex = 0;
 
-            _rowNumber++;
+
             var firstRow = RowReader.Read();
 
             if (firstRow != null)
             {
-                if (ValidColumnSize == -1)
+                if (!ValidColumnSize.HasValue)
                     ValidColumnSize = firstRow.Length;
                 else if (ValidColumnSize != firstRow.Length)
-                    throw new TableIOException($"{_rowNumber}: column size is invalid.");
+                {
+                    Errors.Add(new ErrorDetail
+                    {
+                        Type = "InvalidColumnSize",
+                        Message = "Column size is invalid.",
+                        RowIndex = rowIndex
+                    });
+                    if (Errors.Count >= ErrorLimit) throw new TableIOException(Errors);
+                }
             }
 
             if (HasHeader)
             {
                 if (firstRow == null)
-                    throw new TableIOException("header is null.");
+                {
+                    Errors.Add(new ErrorDetail
+                    {
+                        Type = "NoTableHeader",
+                        Message = "Table header is none."
+                    });
+                    throw new TableIOException(Errors);
+                }
+
                 PropertyMapper.SetTableHeader(firstRow);
             }
 
-            _propertyMaps = PropertyMapper.CreatePropertyMaps();
+            var propertyMaps = PropertyMapper.CreatePropertyMaps();
 
             if (!HasHeader)
             {
                 if (firstRow != null)
-                    models.Add(ConvertFromRow(firstRow));
+                    models.Add(ConvertFromRow(firstRow, rowIndex, propertyMaps));
                 else
                     return models;
             }
 
             while (true)
             {
-                _rowNumber++;
+                rowIndex++;
                 var row = RowReader.Read();
                 if (row == null)
                     break;
                 if (row.Length != ValidColumnSize)
-                    throw new TableIOException($"{_rowNumber}: column size is invalid.");
+                {
+                    Errors.Add(new ErrorDetail
+                    {
+                        Type = "InvalidColumnSize",
+                        Message = "Column size is invalid.",
+                        RowIndex = rowIndex
+                    });
+                    if (Errors.Count >= ErrorLimit) throw new TableIOException(Errors);
+                }
 
-                models.Add(ConvertFromRow(row));
+                models.Add(ConvertFromRow(row, rowIndex, propertyMaps));
             }
 
             return models;
         }
 
-        public TModel ConvertFromRow(string[] row)
+        internal TModel ConvertFromRow(string[] row, int rowIndex, IEnumerable<PropertyMap> propertyMaps)
         {
             var model = new TModel();
-            foreach(var map in _propertyMaps)
+            foreach(var map in propertyMaps)
             {
-                if (map.Index >= row.Length)
-                    throw new TableIOException($"{_rowNumber}: {map.Property.Name}(index:{map.Index}) is over row size({row.Length}).");
+                if (map.ColumnIndex >= row.Length)
+                {
+                    Errors.Add(new ErrorDetail
+                    {
+                        Type = "OverColumnIndex",
+                        Message = "Column index of property mapping is over column size of reading row.",
+                        RowIndex = rowIndex,
+                        ColumnIndex = map.ColumnIndex
+                    });
+                    if (Errors.Count >= ErrorLimit) throw new TableIOException(Errors);
+                }
 
                 var converter = TypeConverterResolver.GetTypeConverter(map.Property);
                 try
                 {
-                    map.Property.SetValue(model, converter.ConvertFromString(row[map.Index]));
+                    map.Property.SetValue(model, converter.ConvertFromString(row[map.ColumnIndex]));
                 }
                 catch(Exception ex)
                 {
-                    throw new TableIOException($"{_rowNumber}: {map.Property.Name}(index:{map.Index}) cannot be set {row[map.Index]}.", ex);
+                    Errors.Add(new ErrorDetail
+                    {
+                        Type = "IllegalTypeConvert",
+                        Message = $"Type conver is illegal({ex.Message}).",
+                        RowIndex = rowIndex,
+                        ColumnIndex = map.ColumnIndex
+                    });
+                    if (Errors.Count >= ErrorLimit) throw new TableIOException(Errors);
                 }
             }
 
             var errors = ModelValidator.Validate(model);
             if (errors.Any())
-                throw new TableIOException
+            {
+                foreach (var error in errors)
+                    error.RowIndex = rowIndex;
+                Errors.AddRange(errors);
+                if (Errors.Count >= ErrorLimit) throw new TableIOException(Errors);
+            }
 
             return model;
         }

@@ -22,7 +22,7 @@ namespace TableIO
                 .OfType<PropertyDescriptor>()
                 .Select((p, i) => new PropertyMap
                 {
-                    Index = i, Property = p
+                    ColumnIndex = i, Property = p
                 });
         }
 

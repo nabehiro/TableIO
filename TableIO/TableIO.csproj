@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,8 +44,10 @@
     <Compile Include="AutoIndexPropertyMapper.cs" />
     <Compile Include="CsvRowReader2.cs" />
     <Compile Include="CsvRowReader.cs" />
+    <Compile Include="DefaultModelValidator.cs" />
     <Compile Include="DefaultTypeConverter.cs" />
     <Compile Include="DefaultTypeConverterResolver.cs" />
+    <Compile Include="ErrorDetail.cs" />
     <Compile Include="FuncTypeConverter.cs" />
     <Compile Include="IModelValidator.cs" />
     <Compile Include="IPropertyMapper.cs" />
