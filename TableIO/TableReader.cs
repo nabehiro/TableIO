@@ -12,12 +12,21 @@ namespace TableIO
         public int? ValidColumnSize { get; set; }
         public int ErrorLimit { get; set; } = 1;
 
-        public IRowReader RowReader { get; set; }
-        public ITypeConverterResolver TypeConverterResolver { get; set; }
-        public IPropertyMapper PropertyMapper { get; set; }
-        public IModelValidator ModelValidator { get; set; }
+        public IRowReader RowReader { get; }
+        public ITypeConverterResolver TypeConverterResolver { get; }
+        public IPropertyMapper PropertyMapper { get; }
+        public IModelValidator ModelValidator { get; }
 
         public List<ErrorDetail> Errors { get; } = new List<ErrorDetail>();
+
+        public TableReader(IRowReader rowReader, ITypeConverterResolver typeConverterResolver,
+            IPropertyMapper propertyMapper, IModelValidator modelValidator)
+        {
+            RowReader = rowReader;
+            TypeConverterResolver = typeConverterResolver;
+            PropertyMapper = propertyMapper;
+            ModelValidator = modelValidator;
+        }
 
         public IEnumerable<TModel> Read()
         {

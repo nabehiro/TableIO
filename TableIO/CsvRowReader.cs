@@ -10,7 +10,7 @@ namespace TableIO
 {
     public class CsvRowReader : IRowReader
     {
-        public TextReader TextReader { get; set; }
+        public TextReader TextReader { get; }
 
         private string _text = null;
 
@@ -18,6 +18,11 @@ namespace TableIO
         private static readonly Regex _tokenizer = new Regex(",|\\r?\\n|[^,\"\\r\\n]+|\"(?:[^\"]|\"\")*\"", RegexOptions.Compiled);
         private static readonly Regex _trimEndRegex = new Regex("\r?\n$", RegexOptions.Compiled);
         private Match _match = null;
+
+        public CsvRowReader(TextReader textReader)
+        {
+            TextReader = textReader;
+        }
 
         public IList<string> Read()
         {

@@ -10,9 +10,14 @@ namespace TableIO
 {
     public class CsvRowWriter : IRowWriter
     {
-        public TextWriter TextWriter { get; set; }
+        public TextWriter TextWriter { get; }
 
         private static readonly Regex _escapeCharRegex = new Regex(",|\"|\\r|\\n", RegexOptions.Compiled);
+
+        public CsvRowWriter(TextWriter textWriter)
+        {
+            TextWriter = textWriter;
+        }
 
         public void Write(IList<string> row)
         {
