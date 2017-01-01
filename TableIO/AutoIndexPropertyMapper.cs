@@ -9,25 +9,14 @@ namespace TableIO
 {
     public class AutoIndexPropertyMapper : IPropertyMapper
     {
-        private Type _type;
-
-        public AutoIndexPropertyMapper(Type type)
+        public IEnumerable<PropertyMap> CreatePropertyMaps(Type type, IList<string> header)
         {
-            _type = type;
-        }
-
-        public IEnumerable<PropertyMap> CreatePropertyMaps()
-        {
-            return TypeDescriptor.GetProperties(_type)
+            return TypeDescriptor.GetProperties(type)
                 .OfType<PropertyDescriptor>()
                 .Select((p, i) => new PropertyMap
                 {
                     ColumnIndex = i, Property = p
                 });
-        }
-
-        public void SetTableHeader(IList<string> header)
-        {
         }
     }
 }

@@ -8,7 +8,6 @@ namespace TableIO
 {
     public interface IPropertyMapper
     {
-        IEnumerable<PropertyMap> CreatePropertyMaps();
-        void SetTableHeader(IList<string> header);
+        IEnumerable<PropertyMap> CreatePropertyMaps(Type type, IList<string> header);
     }
 }

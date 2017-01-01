@@ -21,9 +21,8 @@ namespace TableIO.Tests
         [TestMethod()]
         public void CreatePropertyMapsTest()
         {
-            var mapper = new AutoIndexPropertyMapper(typeof(Model));
-            var maps = mapper.CreatePropertyMaps()
-                             .ToArray();
+            var mapper = new AutoIndexPropertyMapper();
+            var maps = mapper.CreatePropertyMaps(typeof(Model), null).ToArray();
 
             Assert.AreEqual(0, maps[0].ColumnIndex);
             Assert.AreEqual(1, maps[1].ColumnIndex);
