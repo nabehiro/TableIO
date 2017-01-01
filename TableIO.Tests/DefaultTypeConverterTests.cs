@@ -16,6 +16,7 @@ namespace TableIO.Tests
         {
             public int PInt { get; set; }
             public string PString { get; set; }
+            public int? PNInt { get; set; }
         }
 
         private TypeConverter GetPropetyConverter(string name)
@@ -51,6 +52,25 @@ namespace TableIO.Tests
         }
 
         [TestMethod()]
+        public void ConvertFromString_NullableInt()
+        {
+            var propConverter = GetPropetyConverter("PNInt");
+            var converter = new DefaultTypeConverter(propConverter);
+
+            var val = converter.ConvertFromString("1");
+            Assert.AreEqual(1, val);
+
+            val = converter.ConvertFromString("");
+            Assert.IsNull(val);
+
+            val = converter.ConvertFromString(null);
+            Assert.IsNull(val);
+
+            //val = converter.ConvertFromString(long.MaxValue.ToString());
+            // => error
+        }
+
+        [TestMethod()]
         public void ConvertFromString_String()
         {
             var propConverter = GetPropetyConverter("PString");
@@ -59,8 +79,8 @@ namespace TableIO.Tests
             var val = converter.ConvertFromString("abc");
             Assert.AreEqual("abc", val);
 
-            //val = converter.ConvertFromString(null);
-            // ==> val = ""
+            val = converter.ConvertFromString(null);
+            Assert.AreEqual("", val);
         }
     }
 }

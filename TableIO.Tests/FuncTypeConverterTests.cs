@@ -13,7 +13,7 @@ namespace TableIO.Tests
     public class FuncTypeConverterTests
     {
         [TestMethod()]
-        public void ConvertFromStringTest()
+        public void ConvertFromString()
         {
             var converter = new FuncTypeConverter
             {

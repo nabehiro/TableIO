@@ -12,13 +12,13 @@ namespace TableIO.Tests
     public class TableWriterTests
     {
         [TestMethod()]
-        public void WriteTest()
+        public void Write()
         {
             Assert.Fail();
         }
 
         [TestMethod]
-        public void ConvertToRowTest()
+        public void ConvertToRow()
         {
             Assert.Fail();
         }

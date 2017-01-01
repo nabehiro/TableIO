@@ -19,7 +19,7 @@ namespace TableIO.Tests
         }
 
         [TestMethod()]
-        public void CreatePropertyMapsTest()
+        public void CreatePropertyMaps()
         {
             var mapper = new AutoIndexPropertyMapper();
             var maps = mapper.CreatePropertyMaps(typeof(Model), null).ToArray();

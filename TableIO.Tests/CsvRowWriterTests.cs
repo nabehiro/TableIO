@@ -13,7 +13,7 @@ namespace TableIO.Tests
     public class CsvRowWriterTests
     {
         [TestMethod()]
-        public void WriteTest()
+        public void Write()
         {
             var sw = new StringWriter();
             var writer = new CsvRowWriter(sw);
@@ -25,7 +25,7 @@ namespace TableIO.Tests
         }
 
         [TestMethod]
-        public void WriteEmptyTest()
+        public void WriteEmpty()
         {
             var sw = new StringWriter();
             var writer = new CsvRowWriter(sw);
@@ -37,7 +37,7 @@ namespace TableIO.Tests
         }
 
         [TestMethod]
-        public void WriteEscapeTest()
+        public void WriteEscape()
         {
             var sw = new StringWriter();
             var writer = new CsvRowWriter(sw);
@@ -48,7 +48,7 @@ namespace TableIO.Tests
         }
 
         [TestMethod]
-        public void WriteNothingTest()
+        public void WriteNothing()
         {
             var sw = new StringWriter();
             var writer = new CsvRowWriter(sw);
@@ -57,7 +57,7 @@ namespace TableIO.Tests
         }
 
         [TestMethod]
-        public void WriteNoFieldsTest()
+        public void WriteNoFields()
         {
             var sw = new StringWriter();
             var writer = new CsvRowWriter(sw);

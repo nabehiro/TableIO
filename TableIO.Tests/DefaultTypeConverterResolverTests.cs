@@ -25,7 +25,7 @@ namespace TableIO.Tests
         }
 
         [TestMethod()]
-        public void GetTypeConverterTest()
+        public void GetTypeConverter()
         {
             var resolver = new DefaultTypeConverterResolver<Model>();
             var prop = GetPropety("PInt");
@@ -38,7 +38,7 @@ namespace TableIO.Tests
         }
 
         [TestMethod()]
-        public void SetTypeConverterTest()
+        public void SetTypeConverter()
         {
             var resolver = new DefaultTypeConverterResolver<Model>();
             var prop = GetPropety("PInt");

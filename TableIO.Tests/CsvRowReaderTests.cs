@@ -13,7 +13,7 @@ namespace TableIO.Tests
     public class CsvRowReaderTests
     {
         [TestMethod()]
-        public void ReadTest()
+        public void Read()
         {
             var sr = new StringReader("aaa,aaa,aaa\r\nbbb,bbb,bbb\r\n");
             var reader = new CsvRowReader(sr);
@@ -24,7 +24,7 @@ namespace TableIO.Tests
         }
 
         [TestMethod]
-        public void ReadNothingTest()
+        public void ReadNothing()
         {
             var sr = new StringReader("");
             var reader = new CsvRowReader(sr);
@@ -33,7 +33,7 @@ namespace TableIO.Tests
         }
 
         [TestMethod]
-        public void ReadEmptyTest()
+        public void ReadEmpty()
         {
             var sr = new StringReader(",,\n,,\r\n,");
             var reader = new CsvRowReader(sr);
@@ -45,7 +45,7 @@ namespace TableIO.Tests
         }
 
         [TestMethod]
-        public void ReadEscapedTest()
+        public void ReadEscaped()
         {
             var sr = new StringReader($@"""b"",""
 b"",""""""b"",""""""""

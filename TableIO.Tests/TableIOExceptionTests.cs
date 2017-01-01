@@ -12,7 +12,7 @@ namespace TableIO.Tests
     public class TableIOExceptionTests
     {
         [TestMethod()]
-        public void TableIOExceptionTest()
+        public void TableIOException()
         {
             var errors = new[]
             {
