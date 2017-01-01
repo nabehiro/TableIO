@@ -32,8 +32,8 @@ namespace TableIO
         {
             _errors.Clear();
             var models = new List<TModel>();
-
             var rowIndex = 0;
+
             var firstRow = RowReader.Read();
             if (firstRow == null)
             {
@@ -49,19 +49,7 @@ namespace TableIO
 
             // decide valid column size.
             // ** all row's column size must be valid column size. **
-            var validColumnSize = firstRow.Count;
-            if (ColumnSize.HasValue)
-            {
-                if (ColumnSize != firstRow.Count)
-                    throw new TableIOException(new[] { new ErrorDetail
-                    {
-                        Type = "InvalidColumnSize",
-                        Message = "Column size is invalid.",
-                        RowIndex = rowIndex
-                    }});
-
-                validColumnSize = ColumnSize.Value;
-            }
+            var validColumnSize = ColumnSize ?? firstRow.Count;
 
             var propertyMaps = PropertyMapper.CreatePropertyMaps(typeof(TModel), HasHeader ? firstRow : null);
             var prppertyMapMaxColumnIndex = propertyMaps.Any() ? propertyMaps.Max(m => m.ColumnIndex) : -1;
@@ -73,15 +61,15 @@ namespace TableIO
                         RowIndex = rowIndex
                     }});
 
-            if (!HasHeader)
-                models.Add(ConvertFromRow(firstRow, rowIndex, propertyMaps));
-
-            while (true)
+            var row = firstRow;
+            if (HasHeader)
             {
                 rowIndex++;
-                var row = RowReader.Read();
-                if (row == null)
-                    break;
+                row = RowReader.Read();
+            }
+
+            while (row != null)
+            {
                 if (row.Count != validColumnSize)
                 {
                     _errors.Add(new ErrorDetail
@@ -94,7 +82,11 @@ namespace TableIO
                 }
                 else
                     models.Add(ConvertFromRow(row, rowIndex, propertyMaps));
+
+                rowIndex++;
+                row = RowReader.Read();
             }
+            
 
             if (_errors.Any())
                 throw new TableIOException(_errors);
