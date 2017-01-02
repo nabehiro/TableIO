@@ -108,10 +108,11 @@ namespace TableIO
                 {
                     _errors.Add(new ErrorDetail
                     {
-                        Type = "ConvertFailure",
+                        Type = "ConvertFailed",
                         Message = $"Field value({row[map.ColumnIndex]}) cannot be converted({ex.Message}), so property({map.Property.Name}) set is failed.",
                         RowIndex = rowIndex,
-                        ColumnIndex = map.ColumnIndex
+                        ColumnIndex = map.ColumnIndex,
+                        MemberNames = new[] { map.Property.Name }
                     });
                     if (_errors.Count >= ErrorLimit) throw new TableIOException(_errors);
                 }

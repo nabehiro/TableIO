@@ -16,7 +16,8 @@ namespace TableIO
                 .Select((p, i) => new PropertyMap
                 {
                     ColumnIndex = i, Property = p
-                });
+                })
+                .ToArray();
         }
     }
 }

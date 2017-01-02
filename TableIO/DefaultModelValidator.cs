@@ -20,7 +20,8 @@ namespace TableIO
                 Type = "ModelValidation",
                 Message = r.ErrorMessage,
                 MemberNames = r.MemberNames
-            });
+            })
+            .ToArray();
         }
     }
 }
