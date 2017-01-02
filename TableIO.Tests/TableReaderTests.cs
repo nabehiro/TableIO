@@ -37,6 +37,8 @@ namespace TableIO.Tests
             return tableReader;
         }
 
+        #region ConvertFromRow
+
         [TestMethod()]
         public void ConvertFromRow()
         {
@@ -61,8 +63,9 @@ namespace TableIO.Tests
             try
             {
                 reader.ConvertFromRow(new[] { "NG", "abc", "10" }, 2, maps);
+                Assert.Fail();
             }
-            catch(TableIOException ex)
+            catch (TableIOException ex)
             {
                 Assert.AreEqual(1, ex.Errors.Count);
 
@@ -76,6 +79,7 @@ namespace TableIO.Tests
             try
             {
                 reader.ConvertFromRow(new[] { "1", "abc", "NG" }, 2, maps);
+                Assert.Fail();
             }
             catch (TableIOException ex)
             {
@@ -95,6 +99,7 @@ namespace TableIO.Tests
             try
             {
                 reader.ConvertFromRow(new[] { "NG", "abc", "NG" }, 2, maps);
+                Assert.Fail();
             }
             catch (TableIOException ex)
             {
@@ -121,6 +126,7 @@ namespace TableIO.Tests
             try
             {
                 reader.ConvertFromRow(new[] { "1", "TOO_LONG", "10" }, 2, maps);
+                Assert.Fail();
             }
             catch (TableIOException ex)
             {
@@ -136,6 +142,7 @@ namespace TableIO.Tests
             try
             {
                 reader.ConvertFromRow(new[] { "1", "abc", null }, 2, maps);
+                Assert.Fail();
             }
             catch (TableIOException ex)
             {
@@ -155,6 +162,7 @@ namespace TableIO.Tests
             try
             {
                 reader.ConvertFromRow(new[] { "1", "TOO_LONG", null }, 2, maps);
+                Assert.Fail();
             }
             catch (TableIOException ex)
             {
@@ -172,6 +180,34 @@ namespace TableIO.Tests
             }
         }
 
+        #endregion
+
+        [TestMethod]
+        public void ReadNothing()
+        {
+            var reader = CreateTableReader<Model>("");
+            var models = reader.Read();
+
+            Assert.AreEqual(0, models.Count);
+        }
+
+        [TestMethod]
+        public void ReadNothing_Failed_HasHeader()
+        {
+            var reader = CreateTableReader<Model>("");
+            reader.HasHeader = true;
+
+            try
+            {
+                reader.Read();
+                Assert.Fail();
+            }
+            catch(TableIOException ex)
+            {
+                Assert.AreEqual(1, ex.Errors.Count);
+                Assert.AreEqual(ex.Errors[0].Type, "NoTableHeader");
+            }
+        }
 
         [TestMethod()]
         public void Read_NoHeader()
@@ -179,11 +215,158 @@ namespace TableIO.Tests
             var reader = CreateTableReader<Model>("1,aaa,10\n2,bbb,20");
             var models = reader.Read();
 
-            Assert.AreEqual(2, models.Count());
+            Assert.AreEqual(2, models.Count);
 
+            var model = models[0];
+            Assert.AreEqual(1, model.PInt);
+            Assert.AreEqual("aaa", model.PString);
+            Assert.AreEqual(10, model.PNInt);
 
+            model = models[1];
+            Assert.AreEqual(2, model.PInt);
+            Assert.AreEqual("bbb", model.PString);
+            Assert.AreEqual(20, model.PNInt);
         }
 
-        
+        [TestMethod]
+        public void Read_HasHeader()
+        {
+            var reader = CreateTableReader<Model>("header1,header2,header3\n1,aaa,10\n2,bbb,20\n");
+            reader.HasHeader = true;
+            var models = reader.Read();
+
+            Assert.AreEqual(2, models.Count);
+
+            var model = models[0];
+            Assert.AreEqual(1, model.PInt);
+            Assert.AreEqual("aaa", model.PString);
+            Assert.AreEqual(10, model.PNInt);
+
+            model = models[1];
+            Assert.AreEqual(2, model.PInt);
+            Assert.AreEqual("bbb", model.PString);
+            Assert.AreEqual(20, model.PNInt);
+        }
+
+        [TestMethod()]
+        public void Read_NoHeader_SetColumnSize()
+        {
+            var reader = CreateTableReader<Model>("1,aaa,10\n2,bbb,20");
+            reader.ColumnSize = 3;
+            var models = reader.Read();
+
+            Assert.AreEqual(2, models.Count);
+        }
+
+        [TestMethod]
+        public void Read_HasHeader_SetColumnSize()
+        {
+            var reader = CreateTableReader<Model>("header1,header2,header3\n1,aaa,10\n2,bbb,20\n");
+            reader.HasHeader = true;
+            reader.ColumnSize = 3;
+            var models = reader.Read();
+
+            Assert.AreEqual(2, models.Count);
+        }
+
+        [TestMethod]
+        public void ReadFailed_OutOfRangeColumnIndexMapping()
+        {
+            var reader = CreateTableReader<Model>("1,aaa\n2,bbb");
+            reader.ColumnSize = 2;
+
+            try
+            {
+                reader.Read();
+                Assert.Fail();
+            }
+            catch(TableIOException ex)
+            {
+                Assert.AreEqual(1, ex.Errors.Count);
+                Assert.AreEqual("OutOfRangeColumnIndexMapping", ex.Errors[0].Type);
+                Assert.AreEqual(0, ex.Errors[0].RowIndex);
+            }
+        }
+
+        [TestMethod]
+        public void ReadFailed_FirstRow_InvalidColumnSize()
+        {
+            var reader = CreateTableReader<Model>("1,aaa,10,NG\n2,bbb,20");
+            reader.ColumnSize = 3;
+
+            try
+            {
+                reader.Read();
+                Assert.Fail();
+            }
+            catch (TableIOException ex)
+            {
+                Assert.AreEqual(1, ex.Errors.Count);
+                Assert.AreEqual("InvalidColumnSize", ex.Errors[0].Type);
+                Assert.AreEqual(0, ex.Errors[0].RowIndex);
+            }
+        }
+
+        [TestMethod]
+        public void ReadFailed_SecondRow_InvalidColumnSize()
+        {
+            var reader = CreateTableReader<Model>("1,aaa,10\n2,bbb,20,NG");
+            //reader.ColumnSize = 3;
+
+            try
+            {
+                reader.Read();
+                Assert.Fail();
+            }
+            catch (TableIOException ex)
+            {
+                Assert.AreEqual(1, ex.Errors.Count);
+                Assert.AreEqual("InvalidColumnSize", ex.Errors[0].Type);
+                Assert.AreEqual(1, ex.Errors[0].RowIndex);
+            }
+        }
+
+        [TestMethod]
+        public void ReadFailed_2row_InvalidColumnSize()
+        {
+            var reader = CreateTableReader<Model>("1,aaa,10,NG\n2,bbb,20,NG");
+            reader.ColumnSize = 3;
+            reader.ErrorLimit = 10;
+
+            try
+            {
+                reader.Read();
+                Assert.Fail();
+            }
+            catch (TableIOException ex)
+            {
+                Assert.AreEqual(2, ex.Errors.Count);
+                Assert.AreEqual("InvalidColumnSize", ex.Errors[0].Type);
+                Assert.AreEqual(0, ex.Errors[0].RowIndex);
+                Assert.AreEqual("InvalidColumnSize", ex.Errors[1].Type);
+                Assert.AreEqual(1, ex.Errors[1].RowIndex);
+            }
+        }
+
+        [TestMethod]
+        public void ReadFailed_CallingConvertFromRow_ConvertFailed()
+        {
+            var reader = CreateTableReader<Model>("1,aaa,NG\n2,bbb,20");
+
+            try
+            {
+                reader.Read();
+                Assert.Fail();
+            }
+            catch (TableIOException ex)
+            {
+                Assert.AreEqual(1, ex.Errors.Count);
+
+                var error = ex.Errors[0];
+                Assert.AreEqual("ConvertFailed", error.Type);
+                Assert.AreEqual(0, error.RowIndex);
+                Assert.AreEqual(2, error.ColumnIndex);
+            }
+        }
     }
 }

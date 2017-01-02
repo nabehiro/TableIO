@@ -28,7 +28,7 @@ namespace TableIO
             ModelValidator = modelValidator;
         }
 
-        public IEnumerable<TModel> Read()
+        public IList<TModel> Read()
         {
             _errors.Clear();
             var models = new List<TModel>();
@@ -52,12 +52,12 @@ namespace TableIO
             var validColumnSize = ColumnSize ?? firstRow.Count;
 
             var propertyMaps = PropertyMapper.CreatePropertyMaps(typeof(TModel), HasHeader ? firstRow : null);
-            var prppertyMapMaxColumnIndex = propertyMaps.Any() ? propertyMaps.Max(m => m.ColumnIndex) : -1;
-            if (prppertyMapMaxColumnIndex >= validColumnSize)
+            var propertyMapMaxColumnIndex = propertyMaps.Any() ? propertyMaps.Max(m => m.ColumnIndex) : -1;
+            if (propertyMapMaxColumnIndex >= validColumnSize)
                 throw new TableIOException(new[] { new ErrorDetail
                     {
-                        Type = "TooGreatColumnIndexMapping",
-                        Message = $"Column index of property mapping is greater than or equal to valid column size({validColumnSize}).",
+                        Type = "OutOfRangeColumnIndexMapping",
+                        Message = $"Max column index({propertyMapMaxColumnIndex}) of property mapping is greater than or equal to valid column size({validColumnSize}).",
                         RowIndex = rowIndex
                     }});
 
