@@ -54,7 +54,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -71,6 +73,7 @@
     <Compile Include="TableIOExceptionTests.cs" />
     <Compile Include="TableReaderTests.cs" />
     <Compile Include="TableWriterTests.cs" />
+    <Compile Include="TableFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TableIO\TableIO.csproj">
@@ -79,8 +82,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="files\Valid.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

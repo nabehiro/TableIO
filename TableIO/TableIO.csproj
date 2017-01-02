@@ -58,6 +58,7 @@
     <Compile Include="ITypeConverterResolver.cs" />
     <Compile Include="NullModelValidator.cs" />
     <Compile Include="PropertyMap.cs" />
+    <Compile Include="TableFactory.cs" />
     <Compile Include="TableIOException.cs" />
     <Compile Include="TableReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
