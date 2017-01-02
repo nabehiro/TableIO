@@ -9,7 +9,7 @@ namespace TableIO
 {
     public class AutoIndexPropertyMapper : IPropertyMapper
     {
-        public IEnumerable<PropertyMap> CreatePropertyMaps(Type type, IList<string> header)
+        public PropertyMap[] CreatePropertyMaps(Type type, IList<string> header)
         {
             return TypeDescriptor.GetProperties(type)
                 .OfType<PropertyDescriptor>()

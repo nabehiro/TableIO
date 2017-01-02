@@ -56,7 +56,7 @@ namespace TableIO
                 RowWriter.Write(ConvertToRow(model, propertyMaps, validColumnSize));
         }
 
-        internal IList<string> ConvertToRow(TModel model, IEnumerable<PropertyMap> propertyMaps, int columnSize)
+        internal IList<string> ConvertToRow(TModel model, PropertyMap[] propertyMaps, int columnSize)
         {
             var row = new string[columnSize];
 

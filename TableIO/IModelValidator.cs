@@ -9,6 +9,6 @@ namespace TableIO
 {
     public interface IModelValidator
     {
-        IEnumerable<ErrorDetail> Validate(object model);
+        ErrorDetail[] Validate(object model);
     }
 }

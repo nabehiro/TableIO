@@ -94,7 +94,7 @@ namespace TableIO
             return models;
         }
 
-        internal TModel ConvertFromRow(IList<string> row, int rowIndex, IEnumerable<PropertyMap> propertyMaps)
+        internal TModel ConvertFromRow(IList<string> row, int rowIndex, PropertyMap[] propertyMaps)
         {
             var model = new TModel();
             foreach(var map in propertyMaps)

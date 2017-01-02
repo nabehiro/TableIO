@@ -9,7 +9,7 @@ namespace TableIO
 {
     public class DefaultModelValidator : IModelValidator
     {
-        public IEnumerable<ErrorDetail> Validate(object model)
+        public ErrorDetail[] Validate(object model)
         {
             var context = new ValidationContext(model, null, null);
             var results = new List<ValidationResult>();

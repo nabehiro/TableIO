@@ -9,9 +9,9 @@ namespace TableIO
 {
     public class NullModelValidator : IModelValidator
     {
-        public IEnumerable<ErrorDetail> Validate(object model)
+        public ErrorDetail[] Validate(object model)
         {
-            return Enumerable.Empty<ErrorDetail>();
+            return new ErrorDetail[0];
         }
     }
 }

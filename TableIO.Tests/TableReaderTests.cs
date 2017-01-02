@@ -31,7 +31,7 @@ namespace TableIO.Tests
             rowReader = rowReader ?? new CsvRowReader(strReader);
             typeConvResolver = typeConvResolver ?? new DefaultTypeConverterResolver<TModel>();
             mapper = mapper ?? new AutoIndexPropertyMapper();
-            validator = validator ?? new DefaultModelValidator();
+            validator = validator ?? new NullModelValidator();
 
             var tableReader = new TableReader<TModel>(rowReader, typeConvResolver, mapper, validator);
             return tableReader;
@@ -174,10 +174,14 @@ namespace TableIO.Tests
 
 
         [TestMethod()]
-        public void Read()
+        public void Read_NoHeader()
         {
-            // TODO:
-            Assert.Fail();
+            var reader = CreateTableReader<Model>("1,aaa,10\n2,bbb,20");
+            var models = reader.Read();
+
+            Assert.AreEqual(2, models.Count());
+
+
         }
 
         
