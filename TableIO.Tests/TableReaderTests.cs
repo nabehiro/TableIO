@@ -182,6 +182,8 @@ namespace TableIO.Tests
 
         #endregion
 
+        #region Read
+
         [TestMethod]
         public void ReadNothing()
         {
@@ -368,5 +370,7 @@ namespace TableIO.Tests
                 Assert.AreEqual(2, error.ColumnIndex);
             }
         }
+
+        #endregion
     }
 }
