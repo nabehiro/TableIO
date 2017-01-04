@@ -8,7 +8,7 @@ namespace TableIO.ClosedXml
 {
     public class XlsxRowWriter : IRowWriter
     {
-        public void Write(IList<string> row)
+        public void Write(IList<object> row)
         {
             
             throw new NotImplementedException();

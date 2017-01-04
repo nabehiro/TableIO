@@ -49,21 +49,21 @@ namespace TableIO
                     }});
 
                 validColumnSize = header.Count;
-                RowWriter.Write(header);
+                RowWriter.Write(header.Cast<object>().ToArray());
             }
 
             foreach (var model in models)
                 RowWriter.Write(ConvertToRow(model, propertyMaps, validColumnSize));
         }
 
-        internal IList<string> ConvertToRow(TModel model, PropertyMap[] propertyMaps, int columnSize)
+        internal IList<object> ConvertToRow(TModel model, PropertyMap[] propertyMaps, int columnSize)
         {
-            var row = new string[columnSize];
+            var row = new object[columnSize];
 
             foreach (var map in propertyMaps)
             {
                 var converter = TypeConverterResolver.GetTypeConverter(map.Property);
-                row[map.ColumnIndex] = converter.ConvertToString(map.Property.GetValue(model));
+                row[map.ColumnIndex] = converter.ConvertToField(map.Property.GetValue(model));
             }
 
             return row;

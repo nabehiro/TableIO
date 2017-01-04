@@ -8,6 +8,6 @@ namespace TableIO
 {
     public interface IRowReader
     {
-        IList<string> Read();
+        IList<object> Read();
     }
 }

@@ -19,7 +19,7 @@ namespace TableIO
             TextWriter = textWriter;
         }
 
-        public void Write(IList<string> row)
+        public void Write(IList<object> row)
         {
             if (row.Count == 0)
             {
@@ -30,12 +30,14 @@ namespace TableIO
             var sb = new StringBuilder();
             foreach (var field in row)
             {
-                if (!string.IsNullOrEmpty(field))
+                var val = (field as string) ?? $"{field}";
+
+                if (!string.IsNullOrEmpty(val))
                 {
-                    if (_escapeCharRegex.IsMatch(field))
-                        sb.Append($"\"{field.Replace("\"", "\"\"")}\",");
+                    if (_escapeCharRegex.IsMatch(val))
+                        sb.Append($"\"{val.Replace("\"", "\"\"")}\",");
                     else
-                        sb.Append($"{field},");
+                        sb.Append($"{val},");
                 }
                 else
                     sb.Append(",");

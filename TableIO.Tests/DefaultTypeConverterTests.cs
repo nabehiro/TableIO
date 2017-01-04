@@ -26,60 +26,61 @@ namespace TableIO.Tests
         }
 
         [TestMethod()]
-        public void ConvertFromString_Int()
+        public void ConvertFromField_Int()
         {
             var propConverter = GetPropetyConverter("PInt");
             var converter = new DefaultTypeConverter(propConverter);
             
-            var val = converter.ConvertFromString("1");
+            var val = converter.ConvertFromField("1");
             Assert.AreEqual(1, val);
 
-            //val = converter.ConvertFromString(long.MaxValue.ToString());
+            //val = converter.ConvertFromField(long.MaxValue.ToField());
             // => error
-            //val = converter.ConvertFromString("");
+            //val = converter.ConvertFromField("");
             // => error
-            //val = converter.ConvertFromString(null);
+            //val = converter.ConvertFromField(null);
             // => error
         }
 
         [TestMethod]
-        public void ConvertToString_Int()
+        public void ConvertToField_Int()
         {
             var propConverter = GetPropetyConverter("PInt");
             var converter = new DefaultTypeConverter(propConverter);
 
-            var str = converter.ConvertToString(1);
+            var fieldVal = converter.ConvertToField(1);
+            Assert.AreEqual(1, fieldVal);
         }
 
         [TestMethod()]
-        public void ConvertFromString_NullableInt()
+        public void ConvertFromField_NullableInt()
         {
             var propConverter = GetPropetyConverter("PNInt");
             var converter = new DefaultTypeConverter(propConverter);
 
-            var val = converter.ConvertFromString("1");
+            var val = converter.ConvertFromField("1");
             Assert.AreEqual(1, val);
 
-            val = converter.ConvertFromString("");
+            val = converter.ConvertFromField("");
             Assert.IsNull(val);
 
-            val = converter.ConvertFromString(null);
+            val = converter.ConvertFromField(null);
             Assert.IsNull(val);
 
-            //val = converter.ConvertFromString(long.MaxValue.ToString());
+            //val = converter.ConvertFromField(long.MaxValue.ToField());
             // => error
         }
 
         [TestMethod()]
-        public void ConvertFromString_String()
+        public void ConvertFromField_String()
         {
             var propConverter = GetPropetyConverter("PString");
             var converter = new DefaultTypeConverter(propConverter);
 
-            var val = converter.ConvertFromString("abc");
+            var val = converter.ConvertFromField("abc");
             Assert.AreEqual("abc", val);
 
-            val = converter.ConvertFromString(null);
+            val = converter.ConvertFromField(null);
             Assert.AreEqual("", val);
         }
     }

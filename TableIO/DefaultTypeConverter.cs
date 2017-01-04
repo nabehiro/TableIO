@@ -16,14 +16,14 @@ namespace TableIO
             _converter = converter;
         }
 
-        public object ConvertFromString(string str)
+        public object ConvertFromField(object fieldValue)
         {
-            return _converter.ConvertFromString(str);
+            return _converter.ConvertFrom(fieldValue);
         }
 
-        public string ConvertToString(object obj)
+        public object ConvertToField(object propertyValue)
         {
-            return _converter.ConvertToString(obj);
+            return propertyValue;
         }
     }
 }

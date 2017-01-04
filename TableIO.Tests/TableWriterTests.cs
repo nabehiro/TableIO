@@ -41,15 +41,15 @@ namespace TableIO.Tests
             var row = writer.ConvertToRow(new Model { PInt = 1, PString = "aaa", PNInt = 10 }, maps, 3);
 
             Assert.AreEqual(3, row.Count);
-            Assert.AreEqual("1", row[0]);
+            Assert.AreEqual(1, row[0]);
             Assert.AreEqual("aaa", row[1]);
-            Assert.AreEqual("10", row[2]);
+            Assert.AreEqual(10, row[2]);
 
             row = writer.ConvertToRow(new Model { PInt = 1, PString = null, PNInt = null }, maps, 4);
             Assert.AreEqual(4, row.Count);
-            Assert.AreEqual("1", row[0]);
-            Assert.AreEqual("", row[1]);
-            Assert.AreEqual("", row[2]);
+            Assert.AreEqual(1, row[0]);
+            Assert.AreEqual(null, row[1]);
+            Assert.AreEqual(null, row[2]);
         }
 
         [TestMethod()]

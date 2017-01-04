@@ -23,7 +23,7 @@ namespace TableIO.ClosedXml
             _lastColumnNumber = startColumnNumber + columnSize - 1;
         }
 
-        public IList<string> Read()
+        public IList<object> Read()
         {
             var row = _worksheet.Row(_currentRowNumber);
             var fields = row

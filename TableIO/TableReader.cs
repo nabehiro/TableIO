@@ -51,7 +51,7 @@ namespace TableIO
             // ** all row's column size must be valid column size. **
             var validColumnSize = ColumnSize ?? firstRow.Count;
 
-            var propertyMaps = PropertyMapper.CreatePropertyMaps(typeof(TModel), HasHeader ? firstRow : null);
+            var propertyMaps = PropertyMapper.CreatePropertyMaps(typeof(TModel), HasHeader ? firstRow.Select(f => $"{f}").ToArray() : null);
             var propertyMapMaxColumnIndex = propertyMaps.Any() ? propertyMaps.Max(m => m.ColumnIndex) : -1;
             if (propertyMapMaxColumnIndex >= validColumnSize)
                 throw new TableIOException(new[] { new ErrorDetail
@@ -94,7 +94,7 @@ namespace TableIO
             return models;
         }
 
-        internal TModel ConvertFromRow(IList<string> row, int rowIndex, PropertyMap[] propertyMaps)
+        internal TModel ConvertFromRow(IList<object> row, int rowIndex, PropertyMap[] propertyMaps)
         {
             var model = new TModel();
             foreach(var map in propertyMaps)
@@ -102,7 +102,7 @@ namespace TableIO
                 var converter = TypeConverterResolver.GetTypeConverter(map.Property);
                 try
                 {
-                    map.Property.SetValue(model, converter.ConvertFromString(row[map.ColumnIndex]));
+                    map.Property.SetValue(model, converter.ConvertFromField(row[map.ColumnIndex]));
                 }
                 catch(Exception ex)
                 {

@@ -8,7 +8,7 @@ namespace TableIO
 {
     public interface ITypeConverter
     {
-        string ConvertToString(object obj);
-        object ConvertFromString(string str);
+        object ConvertToField(object propertyValue);
+        object ConvertFromField(object fieldValue);
     }
 }

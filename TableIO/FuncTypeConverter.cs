@@ -8,27 +8,27 @@ namespace TableIO
 {
     public class FuncTypeConverter : ITypeConverter
     {
-        public Func<string, object> ConvertFromStringFunc { get; set; } = ConvertFromStringDefault;
-        public Func<object, string> ConvertToStringFunc { get; set; } = ConvertToStringDefault;
+        public Func<object, object> ConvertFromFieldFunc { get; set; } = ConvertFromFieldDefault;
+        public Func<object, object> ConvertToFieldFunc { get; set; } = ConvertToFieldDefault;
 
-        private static object ConvertFromStringDefault(string str)
+        private static object ConvertFromFieldDefault(object fieldValue)
         {
             throw new NotImplementedException();
         }
 
-        private static string ConvertToStringDefault(object obj)
+        private static object ConvertToFieldDefault(object propertyValue)
         {
             throw new NotImplementedException();
         }
 
-        public object ConvertFromString(string str)
+        public object ConvertFromField(object fieldValue)
         {
-            return ConvertFromStringFunc(str);
+            return ConvertFromFieldFunc(fieldValue);
         }
 
-        public string ConvertToString(object obj)
+        public object ConvertToField(object propertyValue)
         {
-            return ConvertToStringFunc(obj);
+            return ConvertToFieldFunc(propertyValue);
         }
     }
 }

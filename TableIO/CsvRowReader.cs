@@ -24,7 +24,7 @@ namespace TableIO
             TextReader = textReader;
         }
 
-        public IList<string> Read()
+        public IList<object> Read()
         {
             if (_text == null)
             {
@@ -35,7 +35,7 @@ namespace TableIO
             if (!_match.Success)
                 return null;
 
-            var fields = new List<string> { "" };
+            var fields = new List<object> { "" };
 
             while (_match.Success)
             {

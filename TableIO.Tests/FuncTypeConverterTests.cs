@@ -13,22 +13,22 @@ namespace TableIO.Tests
     public class FuncTypeConverterTests
     {
         [TestMethod()]
-        public void ConvertFromString()
+        public void ConvertFromField()
         {
             var converter = new FuncTypeConverter
             {
-                ConvertFromStringFunc = s => s == "押忍",
-                ConvertToStringFunc = v => (bool)v ? "押忍" : null
+                ConvertFromFieldFunc = s => (s as string) == "押忍",
+                ConvertToFieldFunc = v => (bool)v ? "押忍" : null
             };
 
-            var val = converter.ConvertFromString("押忍");
+            var val = converter.ConvertFromField("押忍");
             Assert.AreEqual(true, val);
-            val = converter.ConvertFromString("御意");
+            val = converter.ConvertFromField("御意");
             Assert.AreEqual(false, val);
 
-            var str = converter.ConvertToString(true);
+            var str = converter.ConvertToField(true);
             Assert.AreEqual("押忍", str);
-            str = converter.ConvertToString(false);
+            str = converter.ConvertToField(false);
             Assert.IsNull(str);
         }
     }

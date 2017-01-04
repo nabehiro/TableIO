@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoIndexPropertyMapper.cs" />
-    <Compile Include="CsvRowReader2.cs" />
     <Compile Include="CsvRowReader.cs" />
     <Compile Include="CsvRowWriter.cs" />
     <Compile Include="DefaultModelValidator.cs" />
