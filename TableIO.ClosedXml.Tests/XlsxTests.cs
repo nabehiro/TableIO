@@ -77,6 +77,10 @@ namespace TableIO.ClosedXml.Tests
                 worksheet.Cell(10, 1).SetValue(false);
                 Assert.AreEqual(false, worksheet.Cell(10, 1).Value);
 
+                worksheet.Cell(11, 1).SetValue((object)null);
+                Assert.AreEqual("", worksheet.Cell(11, 1).Value);
+
+
                 workbook.SaveAs("files\\Write.xlsx");
             }
         }
