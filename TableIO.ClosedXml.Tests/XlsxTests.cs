@@ -34,6 +34,9 @@ namespace TableIO.ClosedXml.Tests
                 Assert.AreEqual(true, v7.Value);
                 var v8 = worksheet.Cell(8, 2);  // false
                 Assert.AreEqual(false, v8.Value);
+
+                var v9 = worksheet.Cell(9, 2);  // null(empty cell)
+                Assert.AreEqual("", v9.Value);
             }
         }
 

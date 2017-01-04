@@ -28,10 +28,10 @@ namespace TableIO.ClosedXml
             var row = _worksheet.Row(_currentRowNumber);
             var fields = row
                 .Cells(_startColumnNumber, _lastColumnNumber)
-                .Select(c => c.Value.ToString())
+                .Select(c => c.Value)
                 .ToArray();
 
-            if (fields.All(f => f == ""))
+            if (fields.All(f => (f as string) == ""))
                 return null;
 
             _currentRowNumber++;
