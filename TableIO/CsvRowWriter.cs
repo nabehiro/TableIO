@@ -30,18 +30,27 @@ namespace TableIO
             var sb = new StringBuilder();
             foreach (var field in row)
             {
-                var val = (field as string) ?? $"{field}";
-
-                if (!string.IsNullOrEmpty(val))
+                if (field == null)
                 {
-                    if (_escapeCharRegex.IsMatch(val))
-                        sb.Append($"\"{val.Replace("\"", "\"\"")}\",");
-                    else
-                        sb.Append($"{val},");
+                    sb.Append(",");
                 }
                 else
-                    sb.Append(",");
+                {
+                    var val = (field as string) ?? $"{field}";
+                    if (val != "")
+                    {
+                        if (_escapeCharRegex.IsMatch(val))
+                            sb.Append($"\"{val.Replace("\"", "\"\"")}\",");
+                        else
+                            sb.Append($"{val},");
+                    }
+                    else
+                    {
+                        sb.Append(",");
+                    }
+                }
             }
+
             sb.Remove(sb.Length - 1, 1);
 
             TextWriter.WriteLine(sb.ToString());
