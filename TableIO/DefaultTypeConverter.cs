@@ -18,7 +18,7 @@ namespace TableIO
 
         public object ConvertFromField(object fieldValue)
         {
-            return _converter.ConvertFrom(fieldValue);
+            return _converter.ConvertFromString(fieldValue == null ? "" : fieldValue.ToString());
         }
 
         public object ConvertToField(object propertyValue)
