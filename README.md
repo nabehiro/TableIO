@@ -40,8 +40,8 @@ public void Main()
     using (var stmReader = new StreamReader("readfile.csv"))
     {
         // parameters is (textReader, hasHeader)
-        var csvReader = new TableFactory().CreateCsvReader<Model>(stmReader, true);
-        var models = csvReader.Read();
+        var tableReader = new TableFactory().CreateCsvReader<Model>(stmReader, true);
+        var models = tableReader.Read();
 
         Assert.AreEqual(5, models.Count);
         Assert.AreEqual(1, model[0].Id);
@@ -50,9 +50,9 @@ public void Main()
     // write models to file.
     using (var stmWriter = new StreamWriter("writefile.csv"))
     {
-        var csvWriter = new TableFactory().CreateCsvWriter<ValidCsvModel>(stmWriter);
+        var tableWriter = new TableFactory().CreateCsvWriter<ValidCsvModel>(stmWriter);
         // parameter is (models, header)
-        csvWriter.Write(models, new[] { "ID", "NAME", "PRICE", "REMARKS" });
+        tableWriter.Write(models, new[] { "ID", "NAME", "PRICE", "REMARKS" });
     }
 }
 ```
