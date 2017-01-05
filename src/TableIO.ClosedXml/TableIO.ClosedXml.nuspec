@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>TableIO.ClosedXml</id>
+    <version>$version$</version>
+    <title>TableIO.ClosedXml for Excel(xlsx)</title>
+    <authors>nabehiro</authors>
+    <owners>nabehiro</owners>
+    <licenseUrl>https://github.com/nabehiro/TableIO/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/nabehiro/TableIO</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TableIO.ClosedXml is TableIO Extension for reading and writing Excel(xlsx).</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>TableIO Excel Xlsx ClosedXml</tags>
+
+    <dependencies>
+      <dependency id="ClosedXML" version="0.85.0" />
+      <dependency id="TableIO" version="0.1.0" />
+    </dependencies>
+  </metadata>
+</package>
