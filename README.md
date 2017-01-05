@@ -104,7 +104,7 @@ public void Main()
 
 # Design
 
-![Alt Class Diagram](resources/class-diagram.png)
+![Alt Class Diagram](https://raw.githubusercontent.com/nabehiro/TableIO/master/resources/class-diagram.PNG)
 
 TableReader and TableWriter consists of some interfaces that have single work responsiblity.  
 We can replace a concrete class that impliment interface with prefer one as you like !  
