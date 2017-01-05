@@ -96,6 +96,8 @@ public void Main()
         var tableWriter = new TableFactory().CreateXlsxWriter<Model>(worksheet, 1, 1);
         // parameter is (models, header)
         tableWriter.Write(models, new[] { "ID", "NAME", "PRICE", "REMARKS" });
+
+        workbook.SaveAs("writefile.xlsx");
     }
 }
 ```
