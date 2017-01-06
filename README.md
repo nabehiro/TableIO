@@ -107,5 +107,48 @@ public void Main()
 ![Alt Class Diagram](https://raw.githubusercontent.com/nabehiro/TableIO/master/resources/class-diagram.PNG)
 
 TableReader and TableWriter consists of some interfaces that have single work responsiblity.  
-We can replace a concrete class that impliment interface with prefer one as you like !  
+We can replace a concrete class that impliment interface with prefer one as you like !
+
+## IRowReader
+IRowReader reads table row by row.
+
+## IRowWriter
+IRowWriter writes row to table.
+
+## IPropertyMapper
+IPropertyMapper maps class property to table column index.
+### AutoIndexPropertyMapper (Default)
+AutoIndexPropertyMapper mapping rule is that column index is class property definition order.
+```csharp
+class Model
+{
+    public int Id  { get; set; }            // assign to 0 column index.
+    public string Name { get; set; }        // assign to 1 column index.
+    public decimal Price { get; set; }      // assign to 2 column index.
+    public string Remarks { get; set; }     // assign to 3 column index.
+}
+
+...
+
+var mapper = new AutoIndexPropertyMapper();
+var tableReader = new TableFactory().CreateCsvReader<Model>(textReader, propertyMapper:mapper);
+```
+
+## IModelValidator
+IModelValidator validates model that is generated from table row while reading table.
+### NullModelValidator (Default)
+NullModelValidator doesn't validate.
+### DefaultModelValidator
+DefaultModelValidator validates model using DataAnnotations attribute and System.ComponentModel.DataAnnotations.Validator.
+```csharp
+var validator = new DefaultModelValidator();
+var tableReader = new TableFactory().CreateCsvReader<Model>(textReader, modelValidator:validator);
+```
+
+## ITypeConverter
+ITypeConverter convert from table field to class property or convert from class property to table field.
+
+## ITypeConverterResolver
+ITypeConverterResolver provide appropriate ITypeConverter for class property.
+
 
