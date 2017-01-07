@@ -118,7 +118,7 @@ IRowWriter writes row to table.
 ## IPropertyMapper
 IPropertyMapper maps class property to table column index.
 ### AutoIndexPropertyMapper (Default)
-AutoIndexPropertyMapper mapping rule is that column index is class property definition order.
+Mapping rules are that column index is class property definition order.
 ```csharp
 class Model
 {
@@ -127,10 +127,25 @@ class Model
     public decimal Price { get; set; }      // assign to 2 column index.
     public string Remarks { get; set; }     // assign to 3 column index.
 }
-
 ...
-
 var mapper = new AutoIndexPropertyMapper();
+var tableReader = new TableFactory().CreateCsvReader<Model>(textReader, propertyMapper:mapper);
+```
+### ManualIndexPropertyMapper
+Mapping rules are indicated by manual.
+```csharp
+class Model
+{
+    public int Id  { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public string Remarks { get; set; }
+}
+...
+var mapper = new ManualIndexPropertyMapper<Model>()
+    .Map(m => m.Id, 11)
+    .Map(m => m.Name, 10)
+    .Map(m => m.Remarks, 0);
 var tableReader = new TableFactory().CreateCsvReader<Model>(textReader, propertyMapper:mapper);
 ```
 

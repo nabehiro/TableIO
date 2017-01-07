@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace TableIO
 {
+    // TODO: change better performance inplimentation... TextReader.ReadToEnd() is not good.
     public class CsvRowReader : IRowReader
     {
         public TextReader TextReader { get; }

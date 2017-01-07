@@ -69,6 +69,7 @@
     <Compile Include="DefaultTypeConverterTests.cs" />
     <Compile Include="ErrorDetailTests.cs" />
     <Compile Include="FuncTypeConverterTests.cs" />
+    <Compile Include="ManualIndexPropertyMapperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableIOExceptionTests.cs" />
     <Compile Include="TableReaderTests.cs" />

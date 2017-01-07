@@ -10,7 +10,7 @@ namespace TableIO
 {
     public class DefaultTypeConverterResolver<T> : ITypeConverterResolver
     {
-        private Dictionary<string, ITypeConverter> _dic = new Dictionary<string, ITypeConverter>();
+        private readonly Dictionary<string, ITypeConverter> _dic = new Dictionary<string, ITypeConverter>();
 
         public ITypeConverter GetTypeConverter(PropertyDescriptor property)
         {
@@ -21,14 +21,9 @@ namespace TableIO
 
         public DefaultTypeConverterResolver<T> SetTypeConverter<TMember>(Expression<Func<T, TMember>> expression, ITypeConverter typeConverter)
         {
-            var name = GetMemberName(expression);
+            var name = ExpressionHelper.GetMemberName(expression);
             _dic[name] = typeConverter;
             return this;
-        }
-
-        private string GetMemberName<TMember>(Expression<Func<T, TMember>> expression)
-        {
-            return ((MemberExpression)expression.Body).Member.Name;
         }
     }
 }

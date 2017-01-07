@@ -48,6 +48,7 @@
     <Compile Include="DefaultTypeConverter.cs" />
     <Compile Include="DefaultTypeConverterResolver.cs" />
     <Compile Include="ErrorDetail.cs" />
+    <Compile Include="ExpressionHelper.cs" />
     <Compile Include="FuncTypeConverter.cs" />
     <Compile Include="IModelValidator.cs" />
     <Compile Include="IPropertyMapper.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="IRowWriter.cs" />
     <Compile Include="ITypeConverter.cs" />
     <Compile Include="ITypeConverterResolver.cs" />
+    <Compile Include="ManualIndexPropertyMapper.cs" />
     <Compile Include="NullModelValidator.cs" />
     <Compile Include="PropertyMap.cs" />
     <Compile Include="TableFactory.cs" />
