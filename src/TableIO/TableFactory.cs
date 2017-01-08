@@ -16,7 +16,7 @@ namespace TableIO
             IModelValidator modelValidator = null)
             where TModel : new()
         {
-            var rowReader = new CsvRowReader(textReader);
+            var rowReader = new CsvRegexRowReader(textReader);
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
             propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
             modelValidator = modelValidator ?? new NullModelValidator();

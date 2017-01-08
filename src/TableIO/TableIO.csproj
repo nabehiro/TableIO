@@ -42,8 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoIndexPropertyMapper.cs" />
-    <Compile Include="CsvRowReader.cs" />
+    <Compile Include="CsvRegexRowReader.cs" />
     <Compile Include="CsvRowWriter.cs" />
+    <Compile Include="CsvStreamRowReader.cs" />
     <Compile Include="DefaultModelValidator.cs" />
     <Compile Include="DefaultTypeConverter.cs" />
     <Compile Include="DefaultTypeConverterResolver.cs" />

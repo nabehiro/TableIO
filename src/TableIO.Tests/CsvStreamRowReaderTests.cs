@@ -10,13 +10,18 @@ using System.IO;
 namespace TableIO.Tests
 {
     [TestClass()]
-    public class CsvRowReaderTests
+    public class CsvStreamRowReaderTests
     {
+        private CsvStreamRowReader CreateReader(TextReader textReader)
+        {
+            return new CsvStreamRowReader(textReader);
+        }
+
         [TestMethod()]
         public void Read()
         {
             var sr = new StringReader("aaa,aaa,aaa\r\nbbb,bbb,bbb\r\n");
-            var reader = new CsvRowReader(sr);
+            var reader = CreateReader(sr);
 
             CollectionAssert.AreEqual(new[] { "aaa", "aaa", "aaa" }, reader.Read().ToArray());
             CollectionAssert.AreEqual(new[] { "bbb", "bbb", "bbb" }, reader.Read().ToArray());
@@ -27,7 +32,7 @@ namespace TableIO.Tests
         public void ReadNothing()
         {
             var sr = new StringReader("");
-            var reader = new CsvRowReader(sr);
+            var reader = CreateReader(sr);
 
             Assert.IsNull(reader.Read());
         }
@@ -36,7 +41,7 @@ namespace TableIO.Tests
         public void ReadEmpty()
         {
             var sr = new StringReader(",,\n,,\r\n,");
-            var reader = new CsvRowReader(sr);
+            var reader = CreateReader(sr);
 
             CollectionAssert.AreEqual(new[] { "", "", "" }, reader.Read().ToArray());
             CollectionAssert.AreEqual(new[] { "", "", "" }, reader.Read().ToArray());
@@ -51,12 +56,13 @@ namespace TableIO.Tests
 b"",""""""b"",""""""""
 ""c,"","","",""{'\r'}"",""{'\n'}""
 ");
-            var reader = new CsvRowReader(sr);
+            var reader = CreateReader(sr);
 
             CollectionAssert.AreEqual(new[] { "b", "\r\nb", "\"b", "\"" }, reader.Read().ToArray());
             CollectionAssert.AreEqual(new[] { "c,", ",", "\r", "\n" }, reader.Read().ToArray());
             Assert.IsNull(reader.Read());
         }
 
+        
     }
 }

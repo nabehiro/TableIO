@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace TableIO
 {
-    // TODO: change better performance inplimentation... TextReader.ReadToEnd() is not good.
-    public class CsvRowReader : IRowReader
+    public class CsvRegexRowReader : IRowReader
     {
         public TextReader TextReader { get; }
 
@@ -20,7 +19,7 @@ namespace TableIO
         private static readonly Regex _trimEndRegex = new Regex("\r?\n$", RegexOptions.Compiled);
         private Match _match = null;
 
-        public CsvRowReader(TextReader textReader)
+        public CsvRegexRowReader(TextReader textReader)
         {
             TextReader = textReader;
         }
