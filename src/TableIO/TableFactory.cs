@@ -9,6 +9,31 @@ namespace TableIO
 {
     public class TableFactory
     {
+        public TableReader<TModel> CreateReader<TModel>(IRowReader rowReader,
+            ITypeConverterResolver typeConverterResolver = null,
+            IPropertyMapper propertyMapper = null,
+            IModelValidator modelValidator = null)
+            where TModel : new()
+        {
+            typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+            modelValidator = modelValidator ?? new NullModelValidator();
+
+            var reader = new TableReader<TModel>(rowReader, typeConverterResolver, propertyMapper, modelValidator);
+
+            return reader;
+        }
+
+        public TableWriter<TModel> CreateWriter<TModel>(IRowWriter rowWriter,
+            ITypeConverterResolver typeConverterResolver = null,
+            IPropertyMapper propertyMapper = null)
+        {
+            typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+
+            return new TableWriter<TModel>(rowWriter, typeConverterResolver, propertyMapper);
+        }
+
         public TableReader<TModel> CreateCsvReader<TModel>(TextReader textReader,
             bool hasHeader = false,
             ITypeConverterResolver typeConverterResolver = null,
@@ -16,7 +41,7 @@ namespace TableIO
             IModelValidator modelValidator = null)
             where TModel : new()
         {
-            var rowReader = new CsvRegexRowReader(textReader);
+            var rowReader = new CsvStreamRowReader(textReader);
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
             propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
             modelValidator = modelValidator ?? new NullModelValidator();
@@ -31,11 +56,11 @@ namespace TableIO
             ITypeConverterResolver typeConverterResolver = null,
             IPropertyMapper propertyMapper = null)
         {
-            var rowReader = new CsvRowWriter(textWriter);
+            var rowWriter = new CsvRowWriter(textWriter);
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
             propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
 
-            return new TableWriter<TModel>(rowReader, typeConverterResolver, propertyMapper);
+            return new TableWriter<TModel>(rowWriter, typeConverterResolver, propertyMapper);
         }
     }
 }
