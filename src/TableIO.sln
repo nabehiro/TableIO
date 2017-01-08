@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableIO.ClosedXml", "TableI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableIO.ClosedXml.Tests", "TableIO.ClosedXml.Tests\TableIO.ClosedXml.Tests.csproj", "{F72D93F3-8C5C-4013-B881-E0A3F6D79D64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableIO.PerfTests", "TableIO.PerfTests\TableIO.PerfTests.csproj", "{E6BE285B-2C79-4C60-894D-5EC2ED445E84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F72D93F3-8C5C-4013-B881-E0A3F6D79D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F72D93F3-8C5C-4013-B881-E0A3F6D79D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F72D93F3-8C5C-4013-B881-E0A3F6D79D64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6BE285B-2C79-4C60-894D-5EC2ED445E84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6BE285B-2C79-4C60-894D-5EC2ED445E84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6BE285B-2C79-4C60-894D-5EC2ED445E84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6BE285B-2C79-4C60-894D-5EC2ED445E84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
