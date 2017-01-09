@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace TableIO.RowReaders
 {
@@ -66,6 +67,7 @@ namespace TableIO.RowReaders
 
         private char ScanChar()
         {
+            _bufferPosition++;
             if (_bufferPosition >= _bufferSize)
             {
                 if (_startFieldPosition != -1)
@@ -79,7 +81,7 @@ namespace TableIO.RowReaders
                 if (_bufferSize == 0)
                     return '\0';
             }
-            return _buffer[_bufferPosition++];
+            return _buffer[_bufferPosition];
         }
 
         private bool Scan()
@@ -111,7 +113,7 @@ namespace TableIO.RowReaders
     
         private bool ScanField()
         {
-            _startFieldPosition = _bufferPosition - 1;
+            _startFieldPosition = _bufferPosition;
 
             while(true)
             {
@@ -139,8 +141,17 @@ namespace TableIO.RowReaders
 
         private void AddField()
         {
-            var length = _bufferPosition - _startFieldPosition - 1;
-            _fields.Add(length > 0 ? _tempField + new string(_buffer, _startFieldPosition, length) : _tempField);
+            var length = _bufferPosition - _startFieldPosition;
+
+            string field;
+            if (_tempField != "" && length > 0)
+                field = _tempField + new string(_buffer, _startFieldPosition, length);
+            else if (_tempField == "")
+                field = new string(_buffer, _startFieldPosition, length);
+            else
+                field = _tempField;
+
+            _fields.Add(field);
 
             _startFieldPosition = -1;
             _tempField = "";
@@ -148,7 +159,7 @@ namespace TableIO.RowReaders
 
         private bool ScanEscapedField()
         {
-            _startFieldPosition = _bufferPosition - 1;
+            _startFieldPosition = _bufferPosition + 1;
 
             while (true)
             {
@@ -187,8 +198,18 @@ namespace TableIO.RowReaders
         private void AddEscapedField()
         {
             var length = _bufferPosition - _startFieldPosition - 1;
-            var field = length > 0 ? _tempField + new string(_buffer, _startFieldPosition, length) : _tempField;
-            _fields.Add(field.Substring(1, field.Length - 2).Replace("\"\"", "\""));
+
+            string field;
+            if (length < 0)
+                field = _tempField.Remove(_tempField.Length + length);
+            else if (length == 0)
+                field = _tempField;
+            else if (_tempField == "")
+                field = new string(_buffer, _startFieldPosition, length);
+            else
+                field = _tempField + new string(_buffer, _startFieldPosition, length);
+
+            _fields.Add(field.Replace("\"\"", "\""));
 
             _startFieldPosition = -1;
             _tempField = "";

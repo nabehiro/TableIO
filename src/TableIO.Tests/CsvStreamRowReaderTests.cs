@@ -10,7 +10,7 @@ namespace TableIO.Tests
     {
         private CsvStreamRowReader CreateReader(TextReader textReader)
         {
-            return new CsvStreamRowReader(textReader);
+            return new CsvStreamRowReader(textReader, 2);
         }
 
         [TestMethod()]
@@ -48,12 +48,14 @@ namespace TableIO.Tests
         [TestMethod]
         public void ReadEscaped()
         {
-            var sr = new StringReader($@"""b"",""
+            var sr = new StringReader($@"""""""""
+""b"",""
 b"",""""""b"",""""""""
 ""c,"","","",""{'\r'}"",""{'\n'}""
 ");
             var reader = CreateReader(sr);
 
+            CollectionAssert.AreEqual(new[] { "\"" }, reader.Read().ToArray());
             CollectionAssert.AreEqual(new[] { "b", "\r\nb", "\"b", "\"" }, reader.Read().ToArray());
             CollectionAssert.AreEqual(new[] { "c,", ",", "\r", "\n" }, reader.Read().ToArray());
             Assert.IsNull(reader.Read());
