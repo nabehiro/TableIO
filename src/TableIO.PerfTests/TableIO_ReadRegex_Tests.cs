@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Diagnostics;
+using TableIO.RowReaders;
 
 namespace TableIO.PerfTests
 {

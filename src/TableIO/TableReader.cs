@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TableIO.ModelValidators;
+using TableIO.PropertyMappers;
+using TableIO.RowReaders;
+using TableIO.TypeConverters;
 
 namespace TableIO
 {

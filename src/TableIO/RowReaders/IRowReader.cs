@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TableIO
+namespace TableIO.RowReaders
 {
-    public interface IRowWriter
+    public interface IRowReader
     {
-        void Write(IList<object> row);
+        IList<object> Read();
     }
 }

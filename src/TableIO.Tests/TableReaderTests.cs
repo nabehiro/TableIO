@@ -7,6 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel.DataAnnotations;
+using TableIO.PropertyMappers;
+using TableIO.RowReaders;
+using TableIO.ModelValidators;
+using TableIO.TypeConverters;
 
 namespace TableIO.Tests
 {

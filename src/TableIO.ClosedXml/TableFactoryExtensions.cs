@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TableIO.ModelValidators;
+using TableIO.PropertyMappers;
+using TableIO.TypeConverters;
 
 namespace TableIO.ClosedXml
 {
@@ -34,11 +37,11 @@ namespace TableIO.ClosedXml
             ITypeConverterResolver typeConverterResolver = null,
             IPropertyMapper propertyMapper = null)
         {
-            var rowReader = new XlsxRowWriter(worksheet, startRowNumber, startColumnNumber);
+            var rowWriter = new XlsxRowWriter(worksheet, startRowNumber, startColumnNumber);
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
             propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
 
-            return new TableWriter<TModel>(rowReader, typeConverterResolver, propertyMapper);
+            return new TableWriter<TModel>(rowWriter, typeConverterResolver, propertyMapper);
         }
     }
 }

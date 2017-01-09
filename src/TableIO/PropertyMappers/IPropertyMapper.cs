@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TableIO
+namespace TableIO.PropertyMappers
 {
     public interface IPropertyMapper
     {

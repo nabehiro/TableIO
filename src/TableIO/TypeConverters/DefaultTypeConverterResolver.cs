@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TableIO
+namespace TableIO.TypeConverters
 {
     public class DefaultTypeConverterResolver<T> : ITypeConverterResolver
     {

@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using TableIO.PropertyMappers;
+using TableIO.RowWriters;
+using TableIO.TypeConverters;
 
 namespace TableIO.Tests
 {

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TableIO.PropertyMappers;
+using TableIO.RowWriters;
+using TableIO.TypeConverters;
 
 namespace TableIO
 {
@@ -13,7 +16,6 @@ namespace TableIO
         public IRowWriter RowWriter { get; }
         public ITypeConverterResolver TypeConverterResolver { get; }
         public IPropertyMapper PropertyMapper { get; }
-
 
         public TableWriter(IRowWriter rowWriter, ITypeConverterResolver typeConverterResolver, IPropertyMapper propertyMapper)
         {

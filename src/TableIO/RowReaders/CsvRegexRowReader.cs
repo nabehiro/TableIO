@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace TableIO
+namespace TableIO.RowReaders
 {
     public class CsvRegexRowReader : IRowReader
     {
