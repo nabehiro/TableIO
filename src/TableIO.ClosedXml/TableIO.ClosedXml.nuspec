@@ -17,7 +17,7 @@
 
     <dependencies>
       <dependency id="ClosedXML" version="0.85.0" />
-      <dependency id="TableIO" version="0.1.0" />
+      <dependency id="TableIO" version="0.3.1" />
     </dependencies>
   </metadata>
 </package>
