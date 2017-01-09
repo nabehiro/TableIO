@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TableIO.ModelValidators
+﻿namespace TableIO.ModelValidators
 {
     public class NullModelValidator : IModelValidator
     {

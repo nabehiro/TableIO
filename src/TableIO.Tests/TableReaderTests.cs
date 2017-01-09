@@ -1,15 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TableIO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using TableIO.ModelValidators;
 using TableIO.PropertyMappers;
 using TableIO.RowReaders;
-using TableIO.ModelValidators;
 using TableIO.TypeConverters;
 
 namespace TableIO.Tests

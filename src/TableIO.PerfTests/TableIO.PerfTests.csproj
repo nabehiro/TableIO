@@ -56,11 +56,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CsvHelper_Tests.cs" />
-    <Compile Include="TableIO_ReadStream_Tests.cs" />
+    <Compile Include="Read_CsvHelper_Tests.cs" />
+    <Compile Include="Read_Stream_Tests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TableIO_ReadRegex_Tests.cs" />
+    <Compile Include="Read_Regex_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TableIO\TableIO.csproj">

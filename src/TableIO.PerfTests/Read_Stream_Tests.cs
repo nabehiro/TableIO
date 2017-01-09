@@ -7,7 +7,7 @@ using TableIO.RowReaders;
 namespace TableIO.PerfTests
 {
     [TestClass]
-    public class TableIO_ReadRegex_Tests
+    public class Read_Stream_Tests
     {
         class Model
         {
@@ -18,13 +18,13 @@ namespace TableIO.PerfTests
         }
 
         [TestMethod]
-        public void Regex_Read_Unescaped_10000()
+        public void Stream_Read_Unescaped_10000()
         {
             var sw = Stopwatch.StartNew();
 
             using (var stm = new StreamReader("files\\data_unescaped_10000.csv"))
             {
-                var reader = new TableFactory().CreateReader<Model>(new CsvRegexRowReader(stm));
+                var reader = new TableFactory().CreateReader<Model>(new CsvStreamRowReader(stm));
                 var models = reader.Read();
 
                 Assert.AreEqual(10000, models.Count);
@@ -35,13 +35,13 @@ namespace TableIO.PerfTests
         }
 
         [TestMethod]
-        public void Regex_Read_Escaped_10000()
+        public void Stream_Read_Escaped_10000()
         {
             var sw = Stopwatch.StartNew();
 
             using (var stm = new StreamReader("files\\data_escaped_10000.csv"))
             {
-                var reader = new TableFactory().CreateReader<Model>(new CsvRegexRowReader(stm));
+                var reader = new TableFactory().CreateReader<Model>(new CsvStreamRowReader(stm));
                 var models = reader.Read();
 
                 Assert.AreEqual(10000, models.Count);
@@ -52,13 +52,13 @@ namespace TableIO.PerfTests
         }
 
         [TestMethod]
-        public void Regex_Read_Mixed_10000()
+        public void Stream_Read_Mixed_10000()
         {
             var sw = Stopwatch.StartNew();
 
             using (var stm = new StreamReader("files\\data_mixed_10000.csv"))
             {
-                var reader = new TableFactory().CreateReader<Model>(new CsvRegexRowReader(stm));
+                var reader = new TableFactory().CreateReader<Model>(new CsvStreamRowReader(stm));
                 var models = reader.Read();
 
                 Assert.AreEqual(10000, models.Count);
@@ -69,13 +69,13 @@ namespace TableIO.PerfTests
         }
 
         [TestMethod]
-        public void Regex_Read_Mixed_100000()
+        public void Stream_Read_Mixed_100000()
         {
             var sw = Stopwatch.StartNew();
 
             using (var stm = new StreamReader("files\\data_mixed_100000.csv"))
             {
-                var reader = new TableFactory().CreateReader<Model>(new CsvRegexRowReader(stm));
+                var reader = new TableFactory().CreateReader<Model>(new CsvStreamRowReader(stm));
                 var models = reader.Read();
 
                 Assert.AreEqual(100000, models.Count);
@@ -86,13 +86,13 @@ namespace TableIO.PerfTests
         }
 
         [TestMethod]
-        public void Regex_Read_Rand_Str_10000()
+        public void Stream_Read_Rand_Str_10000()
         {
             var sw = Stopwatch.StartNew();
 
             using (var stm = new StreamReader("files\\data_rand_str_10000.csv"))
             {
-                var reader = new TableFactory().CreateReader<Model>(new CsvRegexRowReader(stm));
+                var reader = new TableFactory().CreateReader<Model>(new CsvStreamRowReader(stm));
                 var models = reader.Read();
 
                 Assert.AreEqual(10000, models.Count);

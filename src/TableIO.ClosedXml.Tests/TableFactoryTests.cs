@@ -1,6 +1,5 @@
-﻿using System;
+﻿using ClosedXML.Excel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ClosedXML.Excel;
 
 namespace TableIO.ClosedXml.Tests
 {
