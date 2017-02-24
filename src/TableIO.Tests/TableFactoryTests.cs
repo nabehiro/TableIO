@@ -30,7 +30,7 @@ namespace TableIO.Tests
                 Assert.AreEqual(4, model.Id);
                 Assert.AreEqual("name \"4\"", model.Name);
                 Assert.AreEqual(4000, model.Price);
-                Assert.AreEqual("remarks4\nremarks4", model.Remarks);
+                Assert.AreEqual("remarks4\r\nremarks4", model.Remarks);
             }
         }
 
@@ -51,7 +51,7 @@ namespace TableIO.Tests
                 var model = models[3];
 
                 Assert.AreEqual(4000, model.Id);
-                Assert.AreEqual("remarks4\nremarks4", model.Name);
+                Assert.AreEqual("remarks4\r\nremarks4", model.Name);
                 // no set
                 Assert.AreEqual(0, model.Price);
                 Assert.AreEqual(null, model.Remarks);
