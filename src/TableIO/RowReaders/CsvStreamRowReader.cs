@@ -84,33 +84,6 @@ namespace TableIO.RowReaders
             return _buffer[_bufferPosition];
         }
 
-        private bool Scan()
-        {
-                var c = ScanChar();
-                switch(c)
-                {
-                    case '\r':
-                        c = ScanChar();
-                        if (c != '\n')
-                            throw new InvalidDataException("Text contains unexpected carriage return('\\n').");
-                        if (_fields.Any())
-                            _fields.Add("");
-                        return false;
-                    case '\n':
-                    case '\0':
-                        if (_fields.Any())
-                            _fields.Add("");
-                        return false;
-                    case ',':
-                        _fields.Add("");
-                        return true;
-                    case '"':
-                        return ScanEscapedField();
-                    default:
-                        return ScanField();
-                }
-        }
-    
         private bool ScanField()
         {
             _startFieldPosition = _bufferPosition;
