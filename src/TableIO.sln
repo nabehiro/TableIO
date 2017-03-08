@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableIO.ClosedXml.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableIO.PerfTests", "TableIO.PerfTests\TableIO.PerfTests.csproj", "{E6BE285B-2C79-4C60-894D-5EC2ED445E84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableIO.NPOI", "TableIO.NPOI\TableIO.NPOI.csproj", "{41C28CA0-1B11-439F-A1AF-CA72D1271917}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableIO.NPOI.Tests", "TableIO.NPOI.Tests\TableIO.NPOI.Tests.csproj", "{F93A771A-B571-4BDE-AD45-9CFC0CE6D487}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{E6BE285B-2C79-4C60-894D-5EC2ED445E84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6BE285B-2C79-4C60-894D-5EC2ED445E84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6BE285B-2C79-4C60-894D-5EC2ED445E84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41C28CA0-1B11-439F-A1AF-CA72D1271917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41C28CA0-1B11-439F-A1AF-CA72D1271917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41C28CA0-1B11-439F-A1AF-CA72D1271917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41C28CA0-1B11-439F-A1AF-CA72D1271917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F93A771A-B571-4BDE-AD45-9CFC0CE6D487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F93A771A-B571-4BDE-AD45-9CFC0CE6D487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F93A771A-B571-4BDE-AD45-9CFC0CE6D487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F93A771A-B571-4BDE-AD45-9CFC0CE6D487}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
