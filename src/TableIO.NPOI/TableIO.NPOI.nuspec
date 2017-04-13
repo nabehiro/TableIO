@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>TableIO.NPOI</id>
+    <version>$version$</version>
+    <title>TableIO.NPOI for Excel(xls, xlsx)</title>
+    <authors>nabehiro</authors>
+    <owners>nabehiro</owners>
+    <licenseUrl>https://github.com/nabehiro/TableIO/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/nabehiro/TableIO</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TableIO.NPOI is TableIO Extension for reading and writing Excel(xls, xlsx).</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>TableIO Excel Xls Xlsx NPOI</tags>
+
+    <dependencies>
+      <dependency id="NPOI" version="2.2.1" />
+      <dependency id="TableIO" version="0.3.1" />
+    </dependencies>
+  </metadata>
+</package>
