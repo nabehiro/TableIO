@@ -22,6 +22,7 @@ namespace TableIO.NPOI.Tests
                 var worksheet = workbook.GetSheetAt(0);
 
                 var v1 = worksheet.GetRow(0).GetCell(1);  // 1
+                Assert.AreEqual(CellType.Numeric, v1.CellType);
                 Assert.AreEqual(1D, v1.NumericCellValue);
                 var v2 = worksheet.GetRow(1).GetCell(1);  // 1.23
                 Assert.AreEqual(1.23, v2.NumericCellValue);
@@ -29,14 +30,17 @@ namespace TableIO.NPOI.Tests
                 Assert.AreEqual(3000000000D, v3.NumericCellValue);
 
                 var v4 = worksheet.GetRow(3).GetCell(1);  // "abc"
+                Assert.AreEqual(CellType.String, v4.CellType);
                 Assert.AreEqual("abc", v4.StringCellValue);
                 var v5 = worksheet.GetRow(4).GetCell(1);  // "0123"
                 Assert.AreEqual("0123", v5.StringCellValue);
 
                 var v6 = worksheet.GetRow(5).GetCell(1);  // 2016/01/01
+                // TODO: can't recognize Datetime or Number !! 
                 Assert.AreEqual(new DateTime(2017, 1, 1), v6.DateCellValue);
 
                 var v7 = worksheet.GetRow(6).GetCell(1);  // true
+                Assert.AreEqual(CellType.Boolean, v7.CellType);
                 Assert.AreEqual(true, v7.BooleanCellValue);
                 var v8 = worksheet.GetRow(7).GetCell(1);  // false
                 Assert.AreEqual(false, v8.BooleanCellValue);

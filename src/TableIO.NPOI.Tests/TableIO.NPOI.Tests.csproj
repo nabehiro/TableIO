@@ -72,7 +72,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ExcelRowWriterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableFactoryTests.cs" />
     <Compile Include="XlsTests.cs" />
     <Compile Include="XlsxTests.cs" />
   </ItemGroup>
@@ -99,6 +101,9 @@
     <Content Include="files\Valid.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="files\Template.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

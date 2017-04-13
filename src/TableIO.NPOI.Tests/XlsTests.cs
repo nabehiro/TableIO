@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NPOI.HSSF.UserModel;
 using System.IO;
 using NPOI.SS.UserModel;
+using System.Linq;
 
 namespace TableIO.NPOI.Tests
 {
@@ -21,6 +22,7 @@ namespace TableIO.NPOI.Tests
                 var worksheet = workbook.GetSheetAt(0);
 
                 var v1 = worksheet.GetRow(0).GetCell(1);  // 1
+                Assert.AreEqual(CellType.Numeric, v1.CellType);
                 Assert.AreEqual(1D, v1.NumericCellValue);
                 var v2 = worksheet.GetRow(1).GetCell(1);  // 1.23
                 Assert.AreEqual(1.23, v2.NumericCellValue);
@@ -28,14 +30,17 @@ namespace TableIO.NPOI.Tests
                 Assert.AreEqual(3000000000D, v3.NumericCellValue);
 
                 var v4 = worksheet.GetRow(3).GetCell(1);  // "abc"
+                Assert.AreEqual(CellType.String, v4.CellType);
                 Assert.AreEqual("abc", v4.StringCellValue);
                 var v5 = worksheet.GetRow(4).GetCell(1);  // "0123"
                 Assert.AreEqual("0123", v5.StringCellValue);
 
                 var v6 = worksheet.GetRow(5).GetCell(1);  // 2016/01/01
+                // TODO: can't recognize Datetime or Number !! 
                 Assert.AreEqual(new DateTime(2017, 1, 1), v6.DateCellValue);
 
                 var v7 = worksheet.GetRow(6).GetCell(1);  // true
+                Assert.AreEqual(CellType.Boolean, v7.CellType);
                 Assert.AreEqual(true, v7.BooleanCellValue);
                 var v8 = worksheet.GetRow(7).GetCell(1);  // false
                 Assert.AreEqual(false, v8.BooleanCellValue);
@@ -86,6 +91,62 @@ namespace TableIO.NPOI.Tests
 
             using (var stream = new FileStream("files\\Write.xls", FileMode.Create, FileAccess.Write))
                 workbook.Write(stream);
+        }
+
+        [TestMethod]
+        public void WriteTemplate()
+        {
+            IWorkbook workbook = null;
+            using (var stream = new FileStream("files\\Template.xls", FileMode.Open, FileAccess.Read))
+                workbook = new HSSFWorkbook(stream);
+
+            var worksheet = workbook.GetSheetAt(0);
+            var row0 = worksheet.GetRow(0);
+            Assert.IsNotNull(row0);
+            var row1 = worksheet.GetRow(1);
+            Assert.IsNull(row1);
+
+            row1 = worksheet.CreateRow(1);
+            row1.CreateCell(0).SetCellValue(new DateTime(2017, 1, 1, 1, 1, 1));
+            row1.CreateCell(1).SetCellValue(new DateTime(2017, 1, 1, 1, 1, 1));
+            SetCellValue(row1.CreateCell(2), new object());
+            SetCellValue(row1.CreateCell(3), 100.00m);
+
+            using (var stream = new FileStream("files\\WriteTemplate.xls", FileMode.Create, FileAccess.Write))
+                workbook.Write(stream);
+        }
+
+        private static Type[] _boolTypes = new[] { typeof(bool), typeof(bool?) };
+        private static Type[] _doubleTypes = new[]
+        {
+            typeof(sbyte), typeof(sbyte?),
+            typeof(short), typeof(short?),
+            typeof(int), typeof(int?),
+            typeof(long), typeof(long?),
+            typeof(byte), typeof(byte?),
+            typeof(ushort), typeof(ushort?),
+            typeof(uint), typeof(uint?),
+            typeof(ulong), typeof(ulong?),
+            typeof(float), typeof(float?),
+            typeof(double), typeof(double?),
+            typeof(decimal), typeof(decimal?)
+        };
+
+
+        private void SetCellValue(ICell cell, object value)
+        {
+            if (value == null)
+                return;
+            var type = value.GetType();
+
+            if (type == typeof(string))
+                cell.SetCellValue((string)value);
+            else if (_boolTypes.Contains(type))
+                cell.SetCellValue((bool)value);
+            else if (_doubleTypes.Contains(type))
+                cell.SetCellValue(Convert.ToDouble(value));
+            else
+                cell.SetCellValue(value.ToString());
         }
     }
 }
