@@ -24,9 +24,12 @@ namespace TableIO.NPOI
 
         public void Write(IList<object> row)
         {
-            var xlsRow = _worksheet.CreateRow(_currentRowIndex);
+            var xlsRow = _worksheet.GetRow(_currentRowIndex) ?? _worksheet.CreateRow(_currentRowIndex);
             for (int i = 0; i < row.Count; i++)
-                SetCellValue(xlsRow.CreateCell(_startColumnIndex + i), row[i]);
+            {
+                var xlsCell = xlsRow.GetCell(_startColumnIndex + i) ?? xlsRow.CreateCell(_startColumnIndex + i);
+                SetCellValue(xlsCell, row[i]);
+            }
 
             _currentRowIndex++;
         }
