@@ -42,12 +42,9 @@ namespace TableIO.ClosedXml.Tests
 
                 var models = new[]
                 {
-                    new Model { Id = 10, Name = "NAME_10", Price = 100, Remarks = "REMARKS_10"
-                    },
-                    new Model { Id = 20, Name = "NAME_20", Price = 200, Remarks = null
-                    },
-                    new Model { Id = 30, Name = "NAME_30", Price = 300, Remarks = "REMARKS_30"
-                    }
+                    new Model { Id = 10, Name = "NAME_10", Price = 100, Remarks = "REMARKS_10" },
+                    new Model { Id = 20, Name = "NAME_20", Price = 200, Remarks = null },
+                    new Model { Id = 30, Name = "NAME_30", Price = 300, Remarks = "REMARKS_30" }
                 };
 
                 var tableWriter = new TableFactory().CreateXlsxWriter<Model>(worksheet, 1, 1);
