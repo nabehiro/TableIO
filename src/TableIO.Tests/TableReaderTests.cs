@@ -48,8 +48,25 @@ namespace TableIO.Tests
             Assert.AreEqual(1, model.PInt);
             Assert.AreEqual("abc", model.PString);
             Assert.AreEqual(10, model.PNInt);
+        }
 
-            model = reader.ConvertFromRow(new[] { "1", "abc", null }, 0, maps);
+        [TestMethod]
+        public void ConvertFromRow_NullToNullableInt()
+        {
+            var reader = CreateTableReader<Model>("");
+            var maps = new AutoIndexPropertyMapper().CreatePropertyMaps(typeof(Model), null);
+
+            var model = reader.ConvertFromRow(new[] { "1", "abc", null }, 0, maps);
+            Assert.AreEqual(null, model.PNInt);
+        }
+
+        [TestMethod]
+        public void ConvertFromRow_EmptyToNullableInt()
+        {
+            var reader = CreateTableReader<Model>("");
+            var maps = new AutoIndexPropertyMapper().CreatePropertyMaps(typeof(Model), null);
+
+            var model = reader.ConvertFromRow(new[] { "1", "abc", "" }, 0, maps);
             Assert.AreEqual(null, model.PNInt);
         }
 
