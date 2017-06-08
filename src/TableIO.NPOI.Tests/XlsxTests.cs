@@ -36,7 +36,8 @@ namespace TableIO.NPOI.Tests
                 Assert.AreEqual("0123", v5.StringCellValue);
 
                 var v6 = worksheet.GetRow(5).GetCell(1);  // 2016/01/01
-                // TODO: can't recognize Datetime or Number !! 
+                var isDateCell = DateUtil.IsCellDateFormatted(v6);
+                Assert.IsTrue(isDateCell);
                 Assert.AreEqual(new DateTime(2017, 1, 1), v6.DateCellValue);
 
                 var v7 = worksheet.GetRow(6).GetCell(1);  // true
