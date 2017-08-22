@@ -26,6 +26,27 @@ namespace TableIO.Tests
                 var models = csvReader.Read().ToList();
 
                 Assert.AreEqual(5, models.Count);
+                
+                var model = models[3];
+                Assert.AreEqual(4, model.Id);
+                Assert.AreEqual("name \"4\"", model.Name);
+                Assert.AreEqual(4000, model.Price);
+                Assert.AreEqual("remarks4\r\nremarks4", model.Remarks);
+            }
+        }
+
+        [TestMethod]
+        public void ReadCsvYield()
+        {
+            using (var stmReader = new StreamReader("files\\Valid.csv"))
+            {
+                var csvReader = new TableFactory().CreateCsvReader<Model>(stmReader, true);
+
+                var models = new List<Model>();
+                foreach (var m in csvReader.Read())
+                    models.Add(m);
+
+                Assert.AreEqual(5, models.Count);
 
                 var model = models[3];
                 Assert.AreEqual(4, model.Id);
