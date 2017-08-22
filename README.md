@@ -36,15 +36,25 @@ public void Main()
 {
     IList<Model> models = null;
 
-    // read file to models.
+    // read all rows into a array.
     using (var stmReader = new StreamReader("readfile.csv"))
     {
         // parameters is (textReader, hasHeader)
         var tableReader = new TableFactory().CreateCsvReader<Model>(stmReader, true);
-        var models = tableReader.Read();
+        var models = tableReader.Read().ToArray();
 
         Assert.AreEqual(5, models.Count);
         Assert.AreEqual(1, model[0].Id);
+    }
+
+    // read row by row.(yield results)
+    using (var stmReader = new StreamReader("readfile.csv"))
+    {
+        var tableReader = new TableFactory().CreateCsvReader<Model>(stmReader, true);
+        foreach (var model in tableReader.Read())
+        {
+            Console.WriteLine(model.Id);
+        }
     }
 
     // write models to file.
