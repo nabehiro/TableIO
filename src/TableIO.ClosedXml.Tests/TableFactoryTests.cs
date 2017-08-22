@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace TableIO.ClosedXml.Tests
 {
@@ -22,7 +23,7 @@ namespace TableIO.ClosedXml.Tests
                 var worksheet = workbook.Worksheet(1);
 
                 var tableReader = new TableFactory().CreateXlsxReader<Model>(worksheet, 1, 1, 4, true);
-                var models = tableReader.Read();
+                var models = tableReader.Read().ToList();
 
                 Assert.AreEqual(5, models.Count);
                 var model = models[0];

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TableIO.PropertyMappers;
 
 namespace TableIO.Tests
@@ -22,7 +23,7 @@ namespace TableIO.Tests
             using (var stmReader = new StreamReader("files\\Valid.csv"))
             {
                 var csvReader = new TableFactory().CreateCsvReader<Model>(stmReader, true);
-                var models = csvReader.Read();
+                var models = csvReader.Read().ToList();
 
                 Assert.AreEqual(5, models.Count);
 
@@ -44,7 +45,7 @@ namespace TableIO.Tests
             using (var stmReader = new StreamReader("files\\Valid.csv"))
             {
                 var csvReader = new TableFactory().CreateCsvReader<Model>(stmReader, true, propertyMapper:mapper);
-                var models = csvReader.Read();
+                var models = csvReader.Read().ToList();
 
                 Assert.AreEqual(5, models.Count);
 
@@ -65,7 +66,7 @@ namespace TableIO.Tests
             using (var stmReader = new StreamReader("files\\Valid.csv"))
             {
                 var csvReader = new TableFactory().CreateCsvReader<Model>(stmReader, true);
-                models = csvReader.Read();
+                models = csvReader.Read().ToList();
             }
 
             using (var stmWriter = new StreamWriter("files\\CopyValid.csv"))

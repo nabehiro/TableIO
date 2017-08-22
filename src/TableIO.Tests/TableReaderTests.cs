@@ -204,7 +204,7 @@ namespace TableIO.Tests
         public void ReadNothing()
         {
             var reader = CreateTableReader<Model>("");
-            var models = reader.Read();
+            var models = reader.Read().ToList();
 
             Assert.AreEqual(0, models.Count);
         }
@@ -217,7 +217,7 @@ namespace TableIO.Tests
 
             try
             {
-                reader.Read();
+                reader.Read().ToList();
                 Assert.Fail();
             }
             catch(TableIOException ex)
@@ -231,7 +231,7 @@ namespace TableIO.Tests
         public void Read_NoHeader()
         {
             var reader = CreateTableReader<Model>("1,aaa,10\n2,bbb,20");
-            var models = reader.Read();
+            var models = reader.Read().ToList().ToList();
 
             Assert.AreEqual(2, models.Count);
 
@@ -251,7 +251,7 @@ namespace TableIO.Tests
         {
             var reader = CreateTableReader<Model>("header1,header2,header3\n1,aaa,10\n2,bbb,20\n");
             reader.HasHeader = true;
-            var models = reader.Read();
+            var models = reader.Read().ToList().ToList();
 
             Assert.AreEqual(2, models.Count);
 
@@ -271,7 +271,7 @@ namespace TableIO.Tests
         {
             var reader = CreateTableReader<Model>("1,aaa,10\n2,bbb,20");
             reader.ColumnSize = 3;
-            var models = reader.Read();
+            var models = reader.Read().ToList();
 
             Assert.AreEqual(2, models.Count);
         }
@@ -282,7 +282,7 @@ namespace TableIO.Tests
             var reader = CreateTableReader<Model>("header1,header2,header3\n1,aaa,10\n2,bbb,20\n");
             reader.HasHeader = true;
             reader.ColumnSize = 3;
-            var models = reader.Read();
+            var models = reader.Read().ToList();
 
             Assert.AreEqual(2, models.Count);
         }
@@ -295,7 +295,7 @@ namespace TableIO.Tests
 
             try
             {
-                reader.Read();
+                reader.Read().ToList();
                 Assert.Fail();
             }
             catch(TableIOException ex)
@@ -314,7 +314,7 @@ namespace TableIO.Tests
 
             try
             {
-                reader.Read();
+                reader.Read().ToList();
                 Assert.Fail();
             }
             catch (TableIOException ex)
@@ -333,7 +333,7 @@ namespace TableIO.Tests
 
             try
             {
-                reader.Read();
+                reader.Read().ToList();
                 Assert.Fail();
             }
             catch (TableIOException ex)
@@ -353,7 +353,7 @@ namespace TableIO.Tests
 
             try
             {
-                reader.Read();
+                reader.Read().ToList();
                 Assert.Fail();
             }
             catch (TableIOException ex)
@@ -373,7 +373,7 @@ namespace TableIO.Tests
 
             try
             {
-                reader.Read();
+                reader.Read().ToList();
                 Assert.Fail();
             }
             catch (TableIOException ex)

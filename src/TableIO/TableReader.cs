@@ -30,10 +30,9 @@ namespace TableIO
             ModelValidator = modelValidator;
         }
 
-        public IList<TModel> Read()
+        public IEnumerable<TModel> Read()
         {
             _errors.Clear();
-            var models = new List<TModel>();
             var rowIndex = 0;
 
             var firstRow = RowReader.Read();
@@ -46,7 +45,7 @@ namespace TableIO
                         Message = "Table header is none."
                     }});
                 else
-                    return models;
+                    yield break;
             }
 
             // decide valid column size.
@@ -83,17 +82,14 @@ namespace TableIO
                     if (_errors.Count >= ErrorLimit) throw new TableIOException(_errors);
                 }
                 else
-                    models.Add(ConvertFromRow(row, rowIndex, propertyMaps));
+                    yield return ConvertFromRow(row, rowIndex, propertyMaps);
 
                 rowIndex++;
                 row = RowReader.Read();
             }
-            
 
             if (_errors.Any())
                 throw new TableIOException(_errors);
-
-            return models;
         }
 
         internal TModel ConvertFromRow(IList<object> row, int rowIndex, PropertyMap[] propertyMaps)
