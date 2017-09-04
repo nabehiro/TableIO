@@ -1,11 +1,11 @@
 # TableIO
 
-TableIO provides common interaface for reading and writing CSV, Excel and other table format content.  
+TableIO provides common interaface for reading and writing CSV, TSV, Excel and other table format content.  
 
 # Nuget
 
 [TableIO](https://www.nuget.org/packages/TableIO/)  
-provides core functionality, reading and writing CSV file.
+provides core functionality, reading and writing CSV, TSV file.
 
 ```
 PM> Install-Package TableIO
@@ -20,7 +20,7 @@ PM> Install-Package TableIO.ClosedXml
 
 # How to use
 
-## Read and Write CSV
+## Read and Write CSV, TSV
 ```csharp
 using TableIO;
 
@@ -32,7 +32,8 @@ class Model
     public string Remarks { get; set; }
 }
 
-public void Main()
+// CSV
+public void CSV()
 {
     IList<Model> models = null;
 
@@ -65,6 +66,27 @@ public void Main()
         tableWriter.Write(models, new[] { "ID", "NAME", "PRICE", "REMARKS" });
     }
 }
+
+// TSV
+public void TSV()
+{
+    IList<Model> models = null;
+
+    using (var stmReader = new StreamReader("readfile.tsv"))
+    {
+        var tableReader = new TableFactory().CreateTsvReader<Model>(stmReader, true);
+        var models = tableReader.Read().ToArray();
+
+        Assert.AreEqual(5, models.Count);
+        Assert.AreEqual(1, model[0].Id);
+    }
+
+    using (var stmWriter = new StreamWriter("writefile.tsv"))
+    {
+        var tableWriter = new TableFactory().CreateTsvWriter<ValidCsvModel>(stmWriter);
+        tableWriter.Write(models, new[] { "ID", "NAME", "PRICE", "REMARKS" });
+    }
+}
 ```
 
 ## Read and Write Excel
@@ -80,7 +102,7 @@ class Model
     public string Remarks { get; set; }
 }
 
-public void Main()
+public void EXCEL()
 {
     IList<Model> models = null;
 
