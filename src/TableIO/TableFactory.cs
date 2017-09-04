@@ -62,5 +62,34 @@ namespace TableIO
 
             return new TableWriter<TModel>(rowWriter, typeConverterResolver, propertyMapper);
         }
+
+        public TableReader<TModel> CreateTsvReader<TModel>(TextReader textReader,
+            bool hasHeader = false,
+            ITypeConverterResolver typeConverterResolver = null,
+            IPropertyMapper propertyMapper = null,
+            IModelValidator modelValidator = null)
+            where TModel : new()
+        {
+            var rowReader = new TsvStreamRowReader(textReader);
+            typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+            modelValidator = modelValidator ?? new NullModelValidator();
+
+            var reader = new TableReader<TModel>(rowReader, typeConverterResolver, propertyMapper, modelValidator);
+            reader.HasHeader = hasHeader;
+
+            return reader;
+        }
+
+        public TableWriter<TModel> CreateTsvWriter<TModel>(TextWriter textWriter,
+            ITypeConverterResolver typeConverterResolver = null,
+            IPropertyMapper propertyMapper = null)
+        {
+            var rowWriter = new TsvRowWriter(textWriter);
+            typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+
+            return new TableWriter<TModel>(rowWriter, typeConverterResolver, propertyMapper);
+        }
     }
 }

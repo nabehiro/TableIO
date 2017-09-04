@@ -27,7 +27,7 @@ namespace TableIO.Tests
             where TModel : new()
         {
             var strReader = new StringReader(str);
-            rowReader = rowReader ?? new CsvRegexRowReader(strReader);
+            rowReader = rowReader ?? new CsvStreamRowReader(strReader);
             typeConvResolver = typeConvResolver ?? new DefaultTypeConverterResolver<TModel>();
             mapper = mapper ?? new AutoIndexPropertyMapper();
             validator = validator ?? new NullModelValidator();

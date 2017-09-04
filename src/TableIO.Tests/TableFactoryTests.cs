@@ -36,6 +36,24 @@ namespace TableIO.Tests
         }
 
         [TestMethod]
+        public void ReadTsv()
+        {
+            using (var stmReader = new StreamReader("files\\Valid.tsv"))
+            {
+                var csvReader = new TableFactory().CreateTsvReader<Model>(stmReader, true);
+                var models = csvReader.Read().ToList();
+
+                Assert.AreEqual(5, models.Count);
+
+                var model = models[3];
+                Assert.AreEqual(4, model.Id);
+                Assert.AreEqual("name \"4\"", model.Name);
+                Assert.AreEqual(4000, model.Price);
+                Assert.AreEqual("remarks4\r\nremarks4", model.Remarks);
+            }
+        }
+
+        [TestMethod]
         public void ReadCsvYield()
         {
             using (var stmReader = new StreamReader("files\\Valid.csv"))
@@ -115,6 +133,23 @@ namespace TableIO.Tests
             csvReader.Write(models);
 
             Assert.AreEqual(",,1,NAME_1\r\n,,2,NAME_2\r\n", strWriter.ToString());
+        }
+
+        [TestMethod]
+        public void CopyTsv()
+        {
+            IList<Model> models = null;
+            using (var stmReader = new StreamReader("files\\Valid.tsv"))
+            {
+                var csvReader = new TableFactory().CreateTsvReader<Model>(stmReader, true);
+                models = csvReader.Read().ToList();
+            }
+
+            using (var stmWriter = new StreamWriter("files\\CopyValid.tsv"))
+            {
+                var csvWriter = new TableFactory().CreateTsvWriter<Model>(stmWriter);
+                csvWriter.Write(models, new[] { "ID", "NAME", "PRICE", "REMARKS" });
+            }
         }
     }
 }

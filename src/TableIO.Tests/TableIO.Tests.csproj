@@ -63,7 +63,9 @@
   <ItemGroup>
     <Compile Include="AutoIndexPropertyMapperTests.cs" />
     <Compile Include="CsvRegexRowReaderTests.cs" />
+    <Compile Include="TsvRowWriterTests.cs" />
     <Compile Include="CsvRowWriterTests.cs" />
+    <Compile Include="TsvStreamRowReaderTests.cs" />
     <Compile Include="CsvStreamRowReaderTests.cs" />
     <Compile Include="DefaultModelValidatorTests.cs" />
     <Compile Include="DefaultTypeConverterResolverTests.cs" />
@@ -87,6 +89,9 @@
     <Content Include="files\Valid.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="files\Valid.tsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
