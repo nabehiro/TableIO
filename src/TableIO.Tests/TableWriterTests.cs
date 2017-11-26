@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using TableIO.PropertyMappers;
 using TableIO.RowWriters;
@@ -14,6 +15,15 @@ namespace TableIO.Tests
             public int PInt { get; set; }
             public string PString { get; set; }
             public int? PNInt { get; set; }
+        }
+
+        class TypeConvertTestModel
+        {
+            public int PInt { get; set; }
+
+            public decimal PDecimal { get; set; }
+
+            public DateTime PDateTime { get; set; }
         }
 
         private TableWriter<TModel> CreateTableWriter<TModel>(StringWriter strWriter,
@@ -115,6 +125,25 @@ namespace TableIO.Tests
                 Assert.AreEqual(1, ex.Errors.Count);
                 Assert.AreEqual("InvalidTableHeader", ex.Errors[0].Type);
             }
+        }
+
+        [TestMethod]
+        public void Write_CustomTypeConvert()
+        {
+            var strWriter = new StringWriter();
+            var mapper = new ManualIndexPropertyMapper<TypeConvertTestModel>();
+            mapper
+                .Map(x=> x.PInt, 0)
+                .Map(x=> x.PDecimal, 1, new FuncTypeConverter(){ ConvertToFieldFunc = new Func<object, object>(x=> ((decimal)x).ToString("N5"))})
+                .Map(x => x.PDateTime, 2, new DateTimeConverter("yyyy-MM-dd"))
+                ;
+            var writer = CreateTableWriter<TypeConvertTestModel>(strWriter, mapper:mapper);
+            writer.Write(new[]
+{
+                    new TypeConvertTestModel() {PInt = 100, PDateTime = new DateTime(2000, 1, 1), PDecimal = (decimal)11001.12345}
+                });
+            var result = strWriter.ToString();
+            Assert.AreEqual("100,\"11,001.12345\",2000-01-01\r\n", result);
         }
     }
 }

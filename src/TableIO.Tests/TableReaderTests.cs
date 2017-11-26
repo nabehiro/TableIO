@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
@@ -19,6 +20,13 @@ namespace TableIO.Tests
             public string PString { get; set; }
             [Required(ErrorMessage = "PNIntError")]
             public int? PNInt { get; set; }
+        }
+
+        class TypeConvertTestModel
+        {
+            public int PInt { get; set; }
+
+            public DateTime PDateTime { get; set; }
         }
 
         private TableReader<TModel> CreateTableReader<TModel>(string str,
@@ -385,6 +393,23 @@ namespace TableIO.Tests
                 Assert.AreEqual(0, error.RowIndex);
                 Assert.AreEqual(2, error.ColumnIndex);
             }
+        }
+
+        [TestMethod]
+        public void Read_CustomTypeConvert()
+        {
+            var mapper = new ManualIndexPropertyMapper<TypeConvertTestModel>();
+            mapper
+                .Map(x => x.PInt, 0)
+                .Map(x => x.PDateTime, 1, new DateTimeConverter("MM_yyyy-dd"))
+                ;
+            var reader = CreateTableReader<TypeConvertTestModel>("100,05_2001-15", mapper: mapper);
+
+                var result = reader.Read().ToList();
+                Assert.AreEqual(1, result.Count);
+                Assert.AreEqual(100, result[0].PInt);
+                Assert.AreEqual(new DateTime(2001, 5, 15), result[0].PDateTime);
+
         }
 
         #endregion
