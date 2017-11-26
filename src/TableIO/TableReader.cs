@@ -97,7 +97,7 @@ namespace TableIO
             var model = new TModel();
             foreach(var map in propertyMaps)
             {
-                var converter = TypeConverterResolver.GetTypeConverter(map.Property);
+                var converter = map.TypeConverter ?? TypeConverterResolver.GetTypeConverter(map.Property);
                 try
                 {
                     map.Property.SetValue(model, converter.ConvertFromField(row[map.ColumnIndex]));
