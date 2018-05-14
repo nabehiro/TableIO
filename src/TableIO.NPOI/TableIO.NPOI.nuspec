@@ -14,10 +14,10 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>TableIO Excel Xls Xlsx NPOI</tags>
-
+    
     <dependencies>
-      <dependency id="NPOI" version="2.2.1" />
-      <dependency id="TableIO" version="0.3.1" />
+      <dependency id="NPOI" version="2.3.0" />
+      <dependency id="TableIO" version="2.0.0" />
     </dependencies>
   </metadata>
 </package>

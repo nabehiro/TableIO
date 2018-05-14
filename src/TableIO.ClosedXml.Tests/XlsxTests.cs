@@ -65,7 +65,7 @@ namespace TableIO.ClosedXml.Tests
                 worksheet.Cell(6, 1).SetValue("0123");
                 Assert.AreEqual("0123", worksheet.Cell(6, 1).Value);
 
-                worksheet.Cell(7, 1).SetValue("bbb").SetDataType(XLCellValues.Text);
+                worksheet.Cell(7, 1).SetValue("bbb").SetDataType(XLDataType.Text);
                 Assert.AreEqual("bbb", worksheet.Cell(7, 1).Value);
 
                 worksheet.Cell(8, 1).SetValue(new DateTime(2017, 1, 1, 1, 1, 1));

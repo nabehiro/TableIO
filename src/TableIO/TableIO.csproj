@@ -1,79 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AAF3B134-9271-4ACA-8CA4-D4BDB420839C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TableIO</RootNamespace>
-    <AssemblyName>TableIO</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>nabehiro</Authors>
+    <Company />
+    <Description>TableIO provides same interaface for reading and writing csv, excel(xls, xlsx) and other table format content.</Description>
+    <PackageLicenseUrl>https://github.com/nabehiro/TableIO/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/nabehiro/TableIO</PackageProjectUrl>
+    <PackageTags>Csv Excel xlsx xls Table</PackageTags>
+    <Version>2.0.0</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageReleaseNotes>* 2.0.0 - support for .NET Standard 2.0</PackageReleaseNotes>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="PropertyMappers\AutoIndexPropertyMapper.cs" />
-    <Compile Include="RowReaders\CsvRegexRowReader.cs" />
-    <Compile Include="RowReaders\TsvStreamRowReader.cs" />
-    <Compile Include="RowWriters\TsvRowWriter.cs" />
-    <Compile Include="RowWriters\CsvRowWriter.cs" />
-    <Compile Include="RowReaders\CsvStreamRowReader.cs" />
-    <Compile Include="ModelValidators\DefaultModelValidator.cs" />
-    <Compile Include="TypeConverters\DefaultTypeConverter.cs" />
-    <Compile Include="TypeConverters\DefaultTypeConverterResolver.cs" />
-    <Compile Include="ErrorDetail.cs" />
-    <Compile Include="ExpressionHelper.cs" />
-    <Compile Include="TypeConverters\FuncTypeConverter.cs" />
-    <Compile Include="ModelValidators\IModelValidator.cs" />
-    <Compile Include="PropertyMappers\IPropertyMapper.cs" />
-    <Compile Include="RowReaders\IRowReader.cs" />
-    <Compile Include="RowWriters\IRowWriter.cs" />
-    <Compile Include="TypeConverters\ITypeConverter.cs" />
-    <Compile Include="TypeConverters\ITypeConverterResolver.cs" />
-    <Compile Include="PropertyMappers\ManualIndexPropertyMapper.cs" />
-    <Compile Include="ModelValidators\NullModelValidator.cs" />
-    <Compile Include="PropertyMappers\PropertyMap.cs" />
-    <Compile Include="TableFactory.cs" />
-    <Compile Include="TableIOException.cs" />
-    <Compile Include="TableReader.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TableWriter.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
