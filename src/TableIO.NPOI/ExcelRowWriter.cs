@@ -34,6 +34,7 @@ namespace TableIO.NPOI
             _currentRowIndex++;
         }
 
+        private static readonly Type[] _dateTypes = new[] { typeof(DateTime), typeof(DateTime?) };
         private static readonly Type[] _boolTypes = new[] { typeof(bool), typeof(bool?) };
         private static readonly Type[] _doubleTypes = new[]
         {
@@ -63,6 +64,8 @@ namespace TableIO.NPOI
                 cell.SetCellValue((bool)value);
             else if (_doubleTypes.Contains(type))
                 cell.SetCellValue(Convert.ToDouble(value));
+            //else if (_dateTypes.Contains(type))
+            //    cell.SetCellValue((DateTime)value);
             else
                 cell.SetCellValue(value.ToString());
         }
