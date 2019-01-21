@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.8.0</Version>
+    <Authors>nabehiro</Authors>
+    <Product>TableIO.NPOI</Product>
+    <Description>TableIO.NPOI is TableIO Extension for reading and writing Excel(xls and xlsx).</Description>
+    <Copyright>https://github.com/nabehiro/TableIO/blob/master/LICENSE</Copyright>
+    <PackageProjectUrl>https://github.com/nabehiro/TableIO</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nabehiro/TableIO</RepositoryUrl>
+    <PackageTags>TableIO Excel Xlsx Xls NPOI</PackageTags>
+    <PackageReleaseNotes>* 0.8.0 - support for .NET Standard 2.0</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,10 +1,14 @@
 $nuget = "C:\tools\nuget.exe"
+$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\MSBuild.exe"
+if (!(Test-Path $msbuild)) {
+    $msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe"
+}
 
-$csproj = "src2\TableIO.NPOI\TableIO.NPOI.csproj"
-$outputDir = "src2\TableIO.NPOI\bin\Release"
-$nupkgs = "src2\TableIO.NPOI\bin\Release\*.nupkg"
+$csproj = "src\TableIO.NPOI\TableIO.NPOI.csproj"
+$nupkgs = "src\TableIO.NPOI\bin\Release\*.nupkg"
 
-& $nuget pack $csproj -Build -Prop Configuration=Release -outputdirectory $outputDir
+& $msbuild $csproj /t:build /p:Configuration=Release
+& $msbuild $csproj /t:pack /p:Configuration=Release
 
 $nupkg = (Get-ChildItem $nupkgs | Sort-Object LastWriteTime | Select-Object -Last 1).FullName
 # WARN: When $nuget push error occured, I can't trap the error..

@@ -1,8 +1,11 @@
-$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\MSBuild.exe"
 $nuget = "C:\tools\nuget.exe"
+$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\MSBuild.exe"
+if (!(Test-Path $msbuild)) {
+    $msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe"
+}
 
-$csproj = "src2\TableIO\TableIO.csproj"
-$nupkgs = "src2\TableIO\bin\Release\*.nupkg"
+$csproj = "src\TableIO\TableIO.csproj"
+$nupkgs = "src\TableIO\bin\Release\*.nupkg"
 
 & $msbuild $csproj /t:build /p:Configuration=Release
 & $msbuild $csproj /t:pack /p:Configuration=Release
