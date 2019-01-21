@@ -81,6 +81,9 @@ namespace TableIO.NPOI.Tests
             worksheet.CreateRow(3).CreateCell(0).SetCellValue(new DateTime(2017, 1, 1, 1, 1, 1));
             Assert.AreEqual(new DateTime(2017, 1, 1, 1, 1, 1), worksheet.GetRow(3).GetCell(0).DateCellValue);
 
+            worksheet.GetRow(3).CreateCell(1).SetCellValue(new DateTime(2017, 1, 1, 1, 1, 1));
+
+
             // change CellStyle of Date Value cell.
             var dateFormat = workbook.CreateDataFormat().GetFormat("yyyy/MM/dd HH:mm:ss");
             var dateStyle = workbook.CreateCellStyle();
