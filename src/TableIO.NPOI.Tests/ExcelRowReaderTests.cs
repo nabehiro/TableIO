@@ -13,7 +13,7 @@ namespace TableIO.NPOI.Tests
         public void ReadTest()
         {
             // header + 5 row
-            using (var stream = new FileStream("files\\Valid.xlsx", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream("files/Valid.xlsx", FileMode.Open, FileAccess.Read))
             {
                 var workbook = new XSSFWorkbook(stream);
                 var worksheet = workbook.GetSheetAt(0);

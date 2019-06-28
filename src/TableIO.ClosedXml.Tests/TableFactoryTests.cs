@@ -18,7 +18,7 @@ namespace TableIO.ClosedXml.Tests
         [TestMethod]
         public void CreateXlsxReader()
         {
-            using (var workbook = new XLWorkbook("files\\Valid.xlsx"))
+            using (var workbook = new XLWorkbook("files/Valid.xlsx"))
             {
                 var worksheet = workbook.Worksheet(1);
 

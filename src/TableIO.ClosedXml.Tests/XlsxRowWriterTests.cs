@@ -26,7 +26,7 @@ namespace TableIO.ClosedXml.Tests
                 rowWriter.Write(new object[] { true, "", false });
                 rowWriter.Write(new object[] { new Model() });
 
-                workbook.SaveAs("files\\WriterTest.xlsx");
+                workbook.SaveAs("files/WriterTest.xlsx");
             }
         }
     }

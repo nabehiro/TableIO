@@ -10,7 +10,7 @@ namespace TableIO.ClosedXml.Tests
         [TestMethod]
         public void Read()
         {
-            using (var workbook = new XLWorkbook("files\\Read.xlsx"))
+            using (var workbook = new XLWorkbook("files/Read.xlsx"))
             {
                 var worksheet = workbook.Worksheet(1);
 
@@ -81,7 +81,7 @@ namespace TableIO.ClosedXml.Tests
                 Assert.AreEqual("", worksheet.Cell(11, 1).Value);
 
 
-                workbook.SaveAs("files\\Write.xlsx");
+                workbook.SaveAs("files/Write.xlsx");
             }
         }
     }

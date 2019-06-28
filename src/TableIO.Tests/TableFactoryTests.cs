@@ -20,7 +20,7 @@ namespace TableIO.Tests
         [TestMethod]
         public void ReadCsv()
         {
-            using (var stmReader = new StreamReader("files\\Valid.csv"))
+            using (var stmReader = new StreamReader("files/Valid.csv"))
             {
                 var csvReader = new TableFactory().CreateCsvReader<Model>(stmReader, true);
                 var models = csvReader.Read().ToList();
@@ -38,7 +38,7 @@ namespace TableIO.Tests
         [TestMethod]
         public void ReadTsv()
         {
-            using (var stmReader = new StreamReader("files\\Valid.tsv"))
+            using (var stmReader = new StreamReader("files/Valid.tsv"))
             {
                 var csvReader = new TableFactory().CreateTsvReader<Model>(stmReader, true);
                 var models = csvReader.Read().ToList();
@@ -56,7 +56,7 @@ namespace TableIO.Tests
         [TestMethod]
         public void ReadCsvYield()
         {
-            using (var stmReader = new StreamReader("files\\Valid.csv"))
+            using (var stmReader = new StreamReader("files/Valid.csv"))
             {
                 var csvReader = new TableFactory().CreateCsvReader<Model>(stmReader, true);
 
@@ -81,7 +81,7 @@ namespace TableIO.Tests
                 .Map(m => m.Id, 2)
                 .Map(m => m.Name, 3);
 
-            using (var stmReader = new StreamReader("files\\Valid.csv"))
+            using (var stmReader = new StreamReader("files/Valid.csv"))
             {
                 var csvReader = new TableFactory().CreateCsvReader<Model>(stmReader, true, propertyMapper:mapper);
                 var models = csvReader.Read().ToList();
@@ -102,13 +102,13 @@ namespace TableIO.Tests
         public void CopyCsv()
         {
             IList<Model> models = null;
-            using (var stmReader = new StreamReader("files\\Valid.csv"))
+            using (var stmReader = new StreamReader("files/Valid.csv"))
             {
                 var csvReader = new TableFactory().CreateCsvReader<Model>(stmReader, true);
                 models = csvReader.Read().ToList();
             }
 
-            using (var stmWriter = new StreamWriter("files\\CopyValid.csv"))
+            using (var stmWriter = new StreamWriter("files/CopyValid.csv"))
             {
                 var csvWriter = new TableFactory().CreateCsvWriter<Model>(stmWriter);
                 csvWriter.Write(models, new[] { "ID", "NAME", "PRICE", "REMARKS" });
@@ -139,13 +139,13 @@ namespace TableIO.Tests
         public void CopyTsv()
         {
             IList<Model> models = null;
-            using (var stmReader = new StreamReader("files\\Valid.tsv"))
+            using (var stmReader = new StreamReader("files/Valid.tsv"))
             {
                 var csvReader = new TableFactory().CreateTsvReader<Model>(stmReader, true);
                 models = csvReader.Read().ToList();
             }
 
-            using (var stmWriter = new StreamWriter("files\\CopyValid.tsv"))
+            using (var stmWriter = new StreamWriter("files/CopyValid.tsv"))
             {
                 var csvWriter = new TableFactory().CreateTsvWriter<Model>(stmWriter);
                 csvWriter.Write(models, new[] { "ID", "NAME", "PRICE", "REMARKS" });

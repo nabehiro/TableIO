@@ -16,7 +16,7 @@ namespace TableIO.NPOI.Tests
         [TestMethod]
         public void Read()
         {
-            using (var stream = new FileStream("files\\Read.xls", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream("files/Read.xls", FileMode.Open, FileAccess.Read))
             {
                 IWorkbook workbook = new HSSFWorkbook(stream);
                 var worksheet = workbook.GetSheetAt(0);
@@ -90,7 +90,7 @@ namespace TableIO.NPOI.Tests
             worksheet.CreateRow(4).CreateCell(0).SetCellValue(false);
             Assert.AreEqual(false, worksheet.GetRow(4).GetCell(0).BooleanCellValue);
 
-            using (var stream = new FileStream("files\\Write.xls", FileMode.Create, FileAccess.Write))
+            using (var stream = new FileStream("files/Write.xls", FileMode.Create, FileAccess.Write))
                 workbook.Write(stream);
         }
 
@@ -98,7 +98,7 @@ namespace TableIO.NPOI.Tests
         public void WriteTemplate()
         {
             IWorkbook workbook = null;
-            using (var stream = new FileStream("files\\Template.xls", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream("files/Template.xls", FileMode.Open, FileAccess.Read))
                 workbook = new HSSFWorkbook(stream);
 
             var worksheet = workbook.GetSheetAt(0);
@@ -113,7 +113,7 @@ namespace TableIO.NPOI.Tests
             SetCellValue(row1.CreateCell(2), new object());
             SetCellValue(row1.CreateCell(3), 100.00m);
 
-            using (var stream = new FileStream("files\\WriteTemplate.xls", FileMode.Create, FileAccess.Write))
+            using (var stream = new FileStream("files/WriteTemplate.xls", FileMode.Create, FileAccess.Write))
                 workbook.Write(stream);
         }
 

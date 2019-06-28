@@ -23,7 +23,7 @@ namespace TableIO.PerfTests
         {
             var sw = Stopwatch.StartNew();
 
-            using (var stm = new StreamReader("files\\data_unescaped_10000.csv"))
+            using (var stm = new StreamReader("files/data_unescaped_10000.csv"))
             {
                 var reader = new CsvReader(stm);
                 reader.Configuration.HasHeaderRecord = false;
@@ -41,7 +41,7 @@ namespace TableIO.PerfTests
         {
             var sw = Stopwatch.StartNew();
 
-            using (var stm = new StreamReader("files\\data_escaped_10000.csv"))
+            using (var stm = new StreamReader("files/data_escaped_10000.csv"))
             {
                 var reader = new CsvReader(stm);
                 reader.Configuration.HasHeaderRecord = false;
@@ -59,7 +59,7 @@ namespace TableIO.PerfTests
         {
             var sw = Stopwatch.StartNew();
 
-            using (var stm = new StreamReader("files\\data_mixed_10000.csv"))
+            using (var stm = new StreamReader("files/data_mixed_10000.csv"))
             {
                 var reader = new CsvReader(stm);
                 reader.Configuration.HasHeaderRecord = false;
@@ -77,7 +77,7 @@ namespace TableIO.PerfTests
         {
             var sw = Stopwatch.StartNew();
 
-            using (var stm = new StreamReader("files\\data_mixed_100000.csv"))
+            using (var stm = new StreamReader("files/data_mixed_100000.csv"))
             {
                 var reader = new CsvReader(stm);
                 reader.Configuration.HasHeaderRecord = false;
@@ -95,7 +95,7 @@ namespace TableIO.PerfTests
         {
             var sw = Stopwatch.StartNew();
 
-            using (var stm = new StreamReader("files\\data_rand_str_10000.csv"))
+            using (var stm = new StreamReader("files/data_rand_str_10000.csv"))
             {
                 var reader = new CsvReader(stm);
                 reader.Configuration.HasHeaderRecord = false;

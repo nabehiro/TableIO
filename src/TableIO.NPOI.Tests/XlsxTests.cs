@@ -16,7 +16,7 @@ namespace TableIO.NPOI.Tests
         [TestMethod]
         public void Read()
         {
-            using (var stream = new FileStream("files\\Read.xlsx", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream("files/Read.xlsx", FileMode.Open, FileAccess.Read))
             {
                 IWorkbook workbook = new XSSFWorkbook(stream);
                 var worksheet = workbook.GetSheetAt(0);
@@ -93,7 +93,7 @@ namespace TableIO.NPOI.Tests
             worksheet.CreateRow(4).CreateCell(0).SetCellValue(false);
             Assert.AreEqual(false, worksheet.GetRow(4).GetCell(0).BooleanCellValue);
 
-            using (var stream = new FileStream("files\\Write.xlsx", FileMode.Create, FileAccess.Write))
+            using (var stream = new FileStream("files/Write.xlsx", FileMode.Create, FileAccess.Write))
                 workbook.Write(stream);
         }
     }

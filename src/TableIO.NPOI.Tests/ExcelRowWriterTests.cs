@@ -32,7 +32,7 @@ namespace TableIO.NPOI.Tests
             rowWriter.Write(new object[] { true, "", false });
             rowWriter.Write(new object[] { new Model() });
 
-            using (var stream = new FileStream("files\\WriterTest.xls", FileMode.Create, FileAccess.Write))
+            using (var stream = new FileStream("files/WriterTest.xls", FileMode.Create, FileAccess.Write))
                 workbook.Write(stream);
         }
     }

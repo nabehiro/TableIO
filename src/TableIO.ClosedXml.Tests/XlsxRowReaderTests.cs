@@ -11,7 +11,7 @@ namespace TableIO.ClosedXml.Tests
         public void ReadTest()
         {
             // header + 5 row
-            var workbook = new XLWorkbook("files\\Valid.xlsx");
+            var workbook = new XLWorkbook("files/Valid.xlsx");
             var worksheet = workbook.Worksheet(1);
 
             var rowReader = new XlsxRowReader(worksheet, 1, 1, 4);

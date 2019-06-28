@@ -54,7 +54,7 @@ namespace TableIO.NPOI.Tests
         [TestMethod]
         public void CreateXlsxReader()
         {
-            using (var stream = new FileStream("files\\Valid.xls", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream("files/Valid.xls", FileMode.Open, FileAccess.Read))
             {
                 var workbook = new HSSFWorkbook(stream);
                 var worksheet = workbook.GetSheetAt(0);
