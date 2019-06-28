@@ -11,6 +11,7 @@ jobs:
     executor: dotnet
     steps:
       - checkout
+      - apt-get update && apt-get install -y --allow-unauthenticated libgdiplus
       - run: dotnet build ./src/ -c Debug
       - run: dotnet test ./src/ -c Debug --no-build
   build-push:
