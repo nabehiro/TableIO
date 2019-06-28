@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.ComponentModel;
+using System.Reflection;
 using TableIO.TypeConverters;
 
 namespace TableIO.Tests
@@ -13,17 +14,11 @@ namespace TableIO.Tests
             public string PString { get; set; }
         }
 
-        private PropertyDescriptor GetPropety(string name)
-        {
-            var props = TypeDescriptor.GetProperties(typeof(Model));
-            return props.Find(name, true);
-        }
-
         [TestMethod()]
         public void GetTypeConverter()
         {
             var resolver = new DefaultTypeConverterResolver<Model>();
-            var prop = GetPropety("PInt");
+            var prop = typeof(Model).GetProperty("PInt");
 
             var converter = resolver.GetTypeConverter(prop);
             Assert.IsInstanceOfType(converter, typeof(DefaultTypeConverter));
@@ -36,7 +31,7 @@ namespace TableIO.Tests
         public void SetTypeConverter()
         {
             var resolver = new DefaultTypeConverterResolver<Model>();
-            var prop = GetPropety("PInt");
+            var prop = typeof(Model).GetProperty("PInt");
 
             var converter = resolver.GetTypeConverter(prop);
             Assert.IsInstanceOfType(converter, typeof(DefaultTypeConverter));

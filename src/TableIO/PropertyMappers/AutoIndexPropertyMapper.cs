@@ -9,8 +9,7 @@ namespace TableIO.PropertyMappers
     {
         public PropertyMap[] CreatePropertyMaps(Type type, IList<string> header)
         {
-            return TypeDescriptor.GetProperties(type)
-                .OfType<PropertyDescriptor>()
+            return type.GetProperties()
                 .Select((p, i) => new PropertyMap
                 {
                     ColumnIndex = i, Property = p

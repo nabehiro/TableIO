@@ -1,10 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System.Reflection;
 
 namespace TableIO.PropertyMappers
 {
     public class PropertyMap
     {
         public int ColumnIndex { get; set; }
-        public PropertyDescriptor Property { get; set; }
+        public PropertyInfo Property { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace TableIO.TypeConverters
 {
@@ -9,10 +10,13 @@ namespace TableIO.TypeConverters
     {
         private readonly Dictionary<string, ITypeConverter> _dic = new Dictionary<string, ITypeConverter>();
 
-        public ITypeConverter GetTypeConverter(PropertyDescriptor property)
+        public ITypeConverter GetTypeConverter(PropertyInfo property)
         {
             if (!_dic.ContainsKey(property.Name))
-                _dic[property.Name] = new DefaultTypeConverter(property.Converter);
+            {
+                var converter = TypeDescriptor.GetConverter(property.PropertyType);
+                _dic[property.Name] = new DefaultTypeConverter(converter);
+            }
             return _dic[property.Name];
         }
 

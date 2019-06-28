@@ -20,8 +20,7 @@ namespace TableIO.PropertyMappers
         {
             var names = _dic.Keys.ToArray();
 
-            return TypeDescriptor.GetProperties(type)
-                .OfType<PropertyDescriptor>()
+            return type.GetProperties()
                 .Where(p => names.Contains(p.Name))
                 .Select(p => new PropertyMap
                 {
