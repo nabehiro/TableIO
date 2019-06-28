@@ -16,7 +16,7 @@ namespace TableIO
             where TModel : new()
         {
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
-            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper(AutoIndexPropertyTargetType.CanWrite);
             modelValidator = modelValidator ?? new NullModelValidator();
 
             var reader = new TableReader<TModel>(rowReader, typeConverterResolver, propertyMapper, modelValidator);
@@ -29,7 +29,7 @@ namespace TableIO
             IPropertyMapper propertyMapper = null)
         {
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
-            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper(AutoIndexPropertyTargetType.CanRead);
 
             return new TableWriter<TModel>(rowWriter, typeConverterResolver, propertyMapper);
         }
@@ -43,7 +43,7 @@ namespace TableIO
         {
             var rowReader = new CsvStreamRowReader(textReader);
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
-            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper(AutoIndexPropertyTargetType.CanWrite);
             modelValidator = modelValidator ?? new NullModelValidator();
 
             var reader = new TableReader<TModel>(rowReader, typeConverterResolver, propertyMapper, modelValidator);
@@ -58,7 +58,7 @@ namespace TableIO
         {
             var rowWriter = new CsvRowWriter(textWriter);
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
-            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper(AutoIndexPropertyTargetType.CanRead);
 
             return new TableWriter<TModel>(rowWriter, typeConverterResolver, propertyMapper);
         }
@@ -72,7 +72,7 @@ namespace TableIO
         {
             var rowReader = new TsvStreamRowReader(textReader);
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
-            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper(AutoIndexPropertyTargetType.CanWrite);
             modelValidator = modelValidator ?? new NullModelValidator();
 
             var reader = new TableReader<TModel>(rowReader, typeConverterResolver, propertyMapper, modelValidator);
@@ -87,7 +87,7 @@ namespace TableIO
         {
             var rowWriter = new TsvRowWriter(textWriter);
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
-            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper(AutoIndexPropertyTargetType.CanRead);
 
             return new TableWriter<TModel>(rowWriter, typeConverterResolver, propertyMapper);
         }

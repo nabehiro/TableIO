@@ -21,6 +21,12 @@ namespace TableIO.Tests
             public int? PNInt { get; set; }
         }
 
+        class HasReadOnlyModel
+        {
+            public int PInt { get; set; }
+            public string PString => "hoge";
+        }
+
         private TableReader<TModel> CreateTableReader<TModel>(string str,
             IRowReader rowReader = null, ITypeConverterResolver typeConvResolver = null,
             IPropertyMapper mapper = null, IModelValidator validator = null) 
@@ -305,6 +311,38 @@ namespace TableIO.Tests
                 Assert.AreEqual(0, ex.Errors[0].RowIndex);
             }
         }
+
+        [TestMethod]
+        public void ReadFailed_OutOfRangeColumnIndexMapping_ByReadOnlyProperty()
+        {
+            var mapper = new AutoIndexPropertyMapper(AutoIndexPropertyTargetType.All);
+            var reader = CreateTableReader<HasReadOnlyModel>("1\n2", mapper: mapper);
+
+            try
+            {
+                reader.Read().ToList();
+                Assert.Fail();
+            }
+            catch (TableIOException ex)
+            {
+                Assert.AreEqual(1, ex.Errors.Count);
+                Assert.AreEqual("OutOfRangeColumnIndexMapping", ex.Errors[0].Type);
+                Assert.AreEqual(0, ex.Errors[0].RowIndex);
+            }
+        }
+
+        [TestMethod]
+        public void Read_HasReadOnlyModel()
+        {
+            var mapper = new AutoIndexPropertyMapper(AutoIndexPropertyTargetType.CanWrite);
+            var reader = CreateTableReader<HasReadOnlyModel>("1\n2", mapper: mapper);
+
+            var models = reader.Read().ToList();
+
+            Assert.AreEqual(2, models.Count);
+        }
+
+
 
         [TestMethod]
         public void ReadFailed_FirstRow_InvalidColumnSize()

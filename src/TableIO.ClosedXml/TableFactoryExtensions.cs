@@ -17,7 +17,7 @@ namespace TableIO.ClosedXml
         {
             var rowReader = new XlsxRowReader(worksheet, startRowNumber, startColumnNumber, columnSize);
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
-            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper(AutoIndexPropertyTargetType.CanWrite);
             modelValidator = modelValidator ?? new NullModelValidator();
 
             var reader = new TableReader<TModel>(rowReader, typeConverterResolver, propertyMapper, modelValidator);
@@ -34,7 +34,7 @@ namespace TableIO.ClosedXml
         {
             var rowWriter = new XlsxRowWriter(worksheet, startRowNumber, startColumnNumber);
             typeConverterResolver = typeConverterResolver ?? new DefaultTypeConverterResolver<TModel>();
-            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper();
+            propertyMapper = propertyMapper ?? new AutoIndexPropertyMapper(AutoIndexPropertyTargetType.CanRead);
 
             return new TableWriter<TModel>(rowWriter, typeConverterResolver, propertyMapper);
         }
