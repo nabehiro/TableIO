@@ -7,7 +7,6 @@ using System.Linq;
 
 namespace TableIO.PerfTests
 {
-    [Ignore]
     [TestClass]
     public class Read_Regex_Tests
     {
