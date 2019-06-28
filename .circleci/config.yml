@@ -11,7 +11,7 @@ jobs:
     executor: dotnet
     steps:
       - checkout
-      - run: apt-get update && apt-get install -y --allow-unauthenticated libgdiplus && rm -rf /var/lib/apt/lists/*
+      - run: apt-get update && apt-get install -y --allow-unauthenticated libc6-dev libgdiplus libx11-dev && rm -rf /var/lib/apt/lists/*
       - run: dotnet build ./src/ -c Debug
       - run: dotnet test ./src/ -c Debug --no-build
   build-push:
