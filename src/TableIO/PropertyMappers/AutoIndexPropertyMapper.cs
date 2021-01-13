@@ -20,6 +20,10 @@ namespace TableIO.PropertyMappers
             _targetType = targetType;
         }
 
+        public bool RequiredHeaderOnRead => false;
+
+        public bool RequiredHeaderOnWrite => false;
+
         public PropertyMap[] CreatePropertyMaps(Type type, IList<string> header)
         {
             return type.GetProperties()

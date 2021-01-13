@@ -23,6 +23,13 @@ namespace TableIO
 
         public void Write(IEnumerable<TModel> models, IList<string> header = null)
         {
+            if (PropertyMapper.RequiredHeaderOnWrite && header == null)
+                throw new TableIOException(new[] { new ErrorDetail
+                    {
+                        Type = "HeaderRequired",
+                        Message = $"Header is required on write.",
+                    }});
+
             var propertyMaps = PropertyMapper.CreatePropertyMaps(typeof(TModel), header);
 
             // decide valid column size.

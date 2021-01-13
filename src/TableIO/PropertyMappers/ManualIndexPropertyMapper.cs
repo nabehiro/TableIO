@@ -10,6 +10,10 @@ namespace TableIO.PropertyMappers
     {
         private readonly Dictionary<string, int> _dic = new Dictionary<string, int>();
 
+        public bool RequiredHeaderOnRead => false;
+
+        public bool RequiredHeaderOnWrite => false;
+
         public ManualIndexPropertyMapper<T> Map<TMember>(Expression<Func<T, TMember>> expression, int columnIndex)
         {
             _dic[ExpressionHelper.GetMemberName(expression)] = columnIndex;

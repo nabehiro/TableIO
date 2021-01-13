@@ -52,6 +52,14 @@ namespace TableIO
             // ** all row's column size must be valid column size. **
             var validColumnSize = ColumnSize ?? firstRow.Count;
 
+            if (PropertyMapper.RequiredHeaderOnRead && !HasHeader)
+                throw new TableIOException(new[] { new ErrorDetail
+                    {
+                        Type = "HeaderRequired",
+                        Message = $"Header is required on read.",
+                        RowIndex = rowIndex
+                    }});
+
             var propertyMaps = PropertyMapper.CreatePropertyMaps(typeof(TModel), HasHeader ? firstRow.Select(f => $"{f}").ToArray() : null);
             var propertyMapMaxColumnIndex = propertyMaps.Any() ? propertyMaps.Max(m => m.ColumnIndex) : -1;
             if (propertyMapMaxColumnIndex >= validColumnSize)
