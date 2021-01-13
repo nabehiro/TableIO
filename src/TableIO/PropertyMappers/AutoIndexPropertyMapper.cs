@@ -27,7 +27,10 @@ namespace TableIO.PropertyMappers
                 .Where(p => _targetType != AutoIndexPropertyTargetType.CanWrite || p.CanWrite)
                 .Select((p, i) => new PropertyMap
                 {
-                    ColumnIndex = i, Property = p
+                    ColumnIndex = i,
+                    Property = p,
+                    GetValue = (obj) => p.GetValue(obj),
+                    SetValue = (obj, val) => p.SetValue(obj, val)
                 })
                 .ToArray();
         }

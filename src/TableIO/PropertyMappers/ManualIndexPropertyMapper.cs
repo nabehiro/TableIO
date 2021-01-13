@@ -25,7 +25,9 @@ namespace TableIO.PropertyMappers
                 .Select(p => new PropertyMap
                 {
                     ColumnIndex = _dic[p.Name],
-                    Property = p
+                    Property = p,
+                    GetValue = (obj) => p.GetValue(obj),
+                    SetValue = (obj, val) => p.SetValue(obj, val)
                 })
                 .ToArray();
         }

@@ -62,7 +62,7 @@ namespace TableIO
             foreach (var map in propertyMaps)
             {
                 var converter = TypeConverterResolver.GetTypeConverter(map.Property);
-                row[map.ColumnIndex] = converter.ConvertToField(map.Property.GetValue(model));
+                row[map.ColumnIndex] = converter.ConvertToField(map.GetValue(model));
             }
 
             return row;

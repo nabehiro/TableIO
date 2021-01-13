@@ -100,7 +100,7 @@ namespace TableIO
                 var converter = TypeConverterResolver.GetTypeConverter(map.Property);
                 try
                 {
-                    map.Property.SetValue(model, converter.ConvertFromField(row[map.ColumnIndex]));
+                    map.SetValue(model, converter.ConvertFromField(row[map.ColumnIndex]));
                 }
                 catch(Exception ex)
                 {
