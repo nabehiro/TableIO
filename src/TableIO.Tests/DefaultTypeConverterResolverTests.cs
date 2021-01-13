@@ -36,7 +36,7 @@ namespace TableIO.Tests
             var converter = resolver.GetTypeConverter(prop);
             Assert.IsInstanceOfType(converter, typeof(DefaultTypeConverter));
 
-            resolver.SetTypeConverter(m => m.PInt, new FuncTypeConverter());
+            resolver.SetTypeConverter(prop, new FuncTypeConverter());
 
             converter = resolver.GetTypeConverter(prop);
             Assert.IsInstanceOfType(converter, typeof(FuncTypeConverter));

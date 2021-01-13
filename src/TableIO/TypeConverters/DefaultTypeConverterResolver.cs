@@ -8,22 +8,21 @@ namespace TableIO.TypeConverters
 {
     public class DefaultTypeConverterResolver<T> : ITypeConverterResolver
     {
-        private readonly Dictionary<string, ITypeConverter> _dic = new Dictionary<string, ITypeConverter>();
+        private readonly Dictionary<PropertyInfo, ITypeConverter> _dic = new Dictionary<PropertyInfo, ITypeConverter>();
 
         public ITypeConverter GetTypeConverter(PropertyInfo property)
         {
-            if (!_dic.ContainsKey(property.Name))
+            if (!_dic.ContainsKey(property))
             {
                 var converter = TypeDescriptor.GetConverter(property.PropertyType);
-                _dic[property.Name] = new DefaultTypeConverter(converter);
+                _dic[property] = new DefaultTypeConverter(converter);
             }
-            return _dic[property.Name];
+            return _dic[property];
         }
 
-        public DefaultTypeConverterResolver<T> SetTypeConverter<TMember>(Expression<Func<T, TMember>> expression, ITypeConverter typeConverter)
+        public DefaultTypeConverterResolver<T> SetTypeConverter(PropertyInfo property, ITypeConverter typeConverter)
         {
-            var name = ExpressionHelper.GetMemberName(expression);
-            _dic[name] = typeConverter;
+            _dic[property] = typeConverter;
             return this;
         }
     }
