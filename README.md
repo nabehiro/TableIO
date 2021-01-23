@@ -223,5 +223,3 @@ We can replace a concrete class that impliment interface with prefer one as you 
 Models => Model => Member
 
 Table => Row => Cell
-
-
