@@ -184,32 +184,31 @@ We can replace a concrete class that impliment interface with prefer one as you 
 ### TsvRowReader
 - TextReader
 
-## IRowSerializer<Model>
-- void Initialize()
+## RowSerializer<Model>
+- (private bool ExistsManualMapping = false)
+- HeaderNameConnector = "."
+- EnableCompositeExpansion
+- this Map()
+- void Build()
 - IList<object> Serialize(Model model)
 - IList<string> SerializeHeader()
-
-### AutoOrderRowSerializer<Model>
-
-### ManualOrderRowSerializer<Model>
-- this Map()
-
-### ModelMemberRowSerializer<Model>
-- EnableCompositeExpansion
-
-## IRowDeserializer<Model>
 - Model Deserialize(IList<object> row)
-
-### AutoOrderRowDeserializer<Model>
-
-### ManualOrderRowDeserializer<Model>
-- this Map()
-
-### ModelMemberRowDeserializer<Model>
-- EnableCompositeExpansion
 
 ## IModelValidator<Model>
 - Validate()
 
 ## ValueConverter
+
+## Attributes
+- IgnoreAttribute
+- IndexAttribute
+- FormatAttribute
+- HeaderAttribute(name="name", connector = ".")
+
+# Models <=> Table
+
+Models => Model => Member
+
+Table => Row => Cell
+
 
