@@ -146,12 +146,14 @@ TableReader and TableWriter consists of some interfaces that have single work re
 We can replace a concrete class that impliment interface with prefer one as you like !
 
 # Class
+
 ## TableWriter<Model>
 - RowWriter
 - RowSerializer
 - HasHeader
 - ColumnSize
 - void Write(IEnumerable<Model> models)
+
 
 ## TableReader<Model>
 - RowReader
@@ -162,54 +164,64 @@ We can replace a concrete class that impliment interface with prefer one as you 
 - ColumnSize
 - IEnumerable<Model> Read()
 
+
 ## IRowWriter
 - TrimOption
 - void Write(IList<object> row)
+
 
 ### CsvRowWriter
 - TextWriter
 - AlwaysEncloseInQuotes
 
+
 ### TsvRowWriter
 - TextWriter
 - AlwaysEncloseInQuotes
+
 
 ## IRowReader
 - TrimOption
 - IList<object> Read()
 
+
 ### CsvRowReader
 - TextReader
+
 
 ### TsvRowReader
 - TextReader
 
-## IRowSerializer<Model>
-- void Initialize()
+
+## RowSerializer<Model>
+- (private bool ExistsManualMapping = false)
+- HeaderNameConnector = "."
+- EnableCompositeExpansion
+- this Map()
+- void Build()
 - IList<object> Serialize(Model model)
 - IList<string> SerializeHeader()
-
-### AutoOrderRowSerializer<Model>
-
-### ManualOrderRowSerializer<Model>
-- this Map()
-
-### ModelMemberRowSerializer<Model>
-- EnableCompositeExpansion
-
-## IRowDeserializer<Model>
 - Model Deserialize(IList<object> row)
 
-### AutoOrderRowDeserializer<Model>
-
-### ManualOrderRowDeserializer<Model>
-- this Map()
-
-### ModelMemberRowDeserializer<Model>
-- EnableCompositeExpansion
 
 ## IModelValidator<Model>
 - Validate()
 
+
 ## ValueConverter
+
+
+## Attributes
+- IgnoreAttribute
+- IndexAttribute
+- FormatAttribute
+- HeaderAttribute(name="name", connector = ".")
+
+
+# Models <=> Table
+
+Models => Model => Member
+
+Table => Row => Cell
+
 
