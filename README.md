@@ -170,12 +170,12 @@ We can replace a concrete class that impliment interface with prefer one as you 
 - TrimOption
 - void Write(IList<object> row)
 
-### CsvRowWriter
+## CsvRowWriter
 
 - TextWriter
 - AlwaysEncloseInQuotes
 
-### TsvRowWriter
+## TsvRowWriter
 
 - TextWriter
 - AlwaysEncloseInQuotes
@@ -185,11 +185,11 @@ We can replace a concrete class that impliment interface with prefer one as you 
 - TrimOption
 - IList<object> Read()
 
-### CsvRowReader
+## CsvRowReader
 
 - TextReader
 
-### TsvRowReader
+## TsvRowReader
 
 - TextReader
 
