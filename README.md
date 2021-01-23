@@ -1,6 +1,10 @@
 # TableIO
 
-TableIO provides common interaface for reading and writing CSV, TSV, Excel and other table format content.  
+TableIO provides common interaface for reading and writing CSV, TSV, Excel and other table format content.
+
+TableIO `~v2.x.x` target framework is *.NET Standard 2.0*.
+
+TableIO `v3.0.0~` target framework is *.NET Standard 2.1*. (beta)
 
 # Nuget
 
@@ -141,61 +145,71 @@ public void EXCEL()
 TableReader and TableWriter consists of some interfaces that have single work responsiblity.  
 We can replace a concrete class that impliment interface with prefer one as you like !
 
-## IRowReader
-IRowReader reads table row by row.
+# Class
+## TableWriter<Model>
+- RowWriter
+- RowSerializer
+- HasHeader
+- ColumnSize
+- void Write(IEnumerable<Model> models)
+
+## TableReader<Model>
+- RowReader
+- RowDeserializer
+- ModelValidator
+- Errors
+- HasHeader
+- ColumnSize
+- IEnumerable<Model> Read()
 
 ## IRowWriter
-IRowWriter writes row to table.
+- TrimOption
+- void Write(IList<object> row)
 
-## IPropertyMapper
-IPropertyMapper maps class property to table column index.
-### AutoIndexPropertyMapper (Default)
-Mapping rules are that column index is class property definition order.
-```csharp
-class Model
-{
-    public int Id  { get; set; }            // assign to 0 column index.
-    public string Name { get; set; }        // assign to 1 column index.
-    public decimal Price { get; set; }      // assign to 2 column index.
-    public string Remarks { get; set; }     // assign to 3 column index.
-}
-...
-var mapper = new AutoIndexPropertyMapper();
-var tableReader = new TableFactory().CreateCsvReader<Model>(textReader, propertyMapper:mapper);
-```
-### ManualIndexPropertyMapper
-Mapping rules are indicated by manual.
-```csharp
-class Model
-{
-    public int Id  { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-    public string Remarks { get; set; }
-}
-...
-var mapper = new ManualIndexPropertyMapper<Model>()
-    .Map(m => m.Id, 11)
-    .Map(m => m.Name, 10)
-    .Map(m => m.Remarks, 0);
-var tableReader = new TableFactory().CreateCsvReader<Model>(textReader, propertyMapper:mapper);
-```
+### CsvRowWriter
+- TextWriter
+- AlwaysEncloseInQuotes
 
-## IModelValidator
-IModelValidator validates model that is generated from table row while reading table.
-### NullModelValidator (Default)
-NullModelValidator doesn't validate.
-### DefaultModelValidator
-DefaultModelValidator validates model using DataAnnotations attribute and System.ComponentModel.DataAnnotations.Validator.
-```csharp
-var validator = new DefaultModelValidator();
-var tableReader = new TableFactory().CreateCsvReader<Model>(textReader, modelValidator:validator);
-```
+### TsvRowWriter
+- TextWriter
+- AlwaysEncloseInQuotes
 
-## ITypeConverter
-ITypeConverter convert from table field to class property or convert from class property to table field.
+## IRowReader
+- TrimOption
+- IList<object> Read()
 
-## ITypeConverterResolver
-ITypeConverterResolver provide appropriate ITypeConverter for class property.
+### CsvRowReader
+- TextReader
 
+### TsvRowReader
+- TextReader
+
+## IRowSerializer<Model>
+- void Initialize()
+- IList<object> Serialize(Model model)
+- IList<string> SerializeHeader()
+
+### AutoOrderRowSerializer<Model>
+
+### ManualOrderRowSerializer<Model>
+- this Map()
+
+### ModelMemberRowSerializer<Model>
+- EnableCompositeExpansion
+
+## IRowDeserializer<Model>
+- Model Deserialize(IList<object> row)
+
+### AutoOrderRowDeserializer<Model>
+
+### ManualOrderRowDeserializer<Model>
+- this Map()
+
+### ModelMemberRowDeserializer<Model>
+- EnableCompositeExpansion
+
+## IModelValidator<Model>
+- Validate()
+
+## ValueConverter
 
