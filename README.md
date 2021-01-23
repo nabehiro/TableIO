@@ -148,14 +148,15 @@ We can replace a concrete class that impliment interface with prefer one as you 
 # Class
 
 ## TableWriter<Model>
+
 - RowWriter
 - RowSerializer
 - HasHeader
 - ColumnSize
 - void Write(IEnumerable<Model> models)
 
-
 ## TableReader<Model>
+
 - RowReader
 - RowDeserializer
 - ModelValidator
@@ -164,36 +165,36 @@ We can replace a concrete class that impliment interface with prefer one as you 
 - ColumnSize
 - IEnumerable<Model> Read()
 
-
 ## IRowWriter
+
 - TrimOption
 - void Write(IList<object> row)
 
-
 ### CsvRowWriter
+
 - TextWriter
 - AlwaysEncloseInQuotes
-
 
 ### TsvRowWriter
+
 - TextWriter
 - AlwaysEncloseInQuotes
 
-
 ## IRowReader
+
 - TrimOption
 - IList<object> Read()
 
-
 ### CsvRowReader
-- TextReader
 
+- TextReader
 
 ### TsvRowReader
+
 - TextReader
 
-
 ## RowSerializer<Model>
+
 - (private bool ExistsManualMapping = false)
 - HeaderNameConnector = "."
 - EnableCompositeExpansion
@@ -203,20 +204,18 @@ We can replace a concrete class that impliment interface with prefer one as you 
 - IList<string> SerializeHeader()
 - Model Deserialize(IList<object> row)
 
-
 ## IModelValidator<Model>
-- Validate()
 
+- Validate()
 
 ## ValueConverter
 
-
 ## Attributes
+
 - IgnoreAttribute
 - IndexAttribute
 - FormatAttribute
 - HeaderAttribute(name="name", connector = ".")
-
 
 # Models <=> Table
 
